@@ -1,0 +1,11 @@
+# MinerU / PDF 转换中间产物
+**/auto/_content_list.json
+**/auto/_content_list_v2.json
+**/auto/_middle.json
+**/auto/_model.json
+**/auto/*.pdf
+sources/_conv/
+__pycache__/
+
+# SDD scratch
+.superpowers/
