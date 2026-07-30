@@ -21,7 +21,19 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 
 ## 受众推断(启动时一次性完成)
 
-从用户首句话推断熟练度(熟练/中级/新手),据此调术语解释深度与节奏。模糊时主动确认,如"我先按你熟悉 Pass@k 来讲,需要展开吗?"。后续模式沿用此结论;发现偏差则修正。
+从用户首句话推断熟练度(熟练/中级/新手),据此调解释深度:
+- **新手/中级**:每个引用的概念先给一句白话解释再下结论;术语查 `references/glossary.md` 引用其定义;节奏放慢,多用例子。
+- **熟练**:保持紧凑,直接用术语,不展开基础概念。
+模糊时主动确认,如"我先按你熟悉 Pass@k 来讲,需要展开吗?"。后续模式沿用此结论;发现偏差则修正。
+
+## 读取用户材料(结合实际作答,避免空谈)
+
+所有模式都应**主动索要并 Read 用户提供的实际材料**(代码、数据集文件、Rubric、论文、repo 链接等),把分析与用户的真实内容结合,而不是只凭静态 references 泛泛而谈:
+- 模式 1(构建):问清要测什么模型/agent、现有 setup,据此给具体方案,而非通用清单。
+- 模式 2(复盘):要求用户给项目文件或描述;Read 其数据集/评分脚本/Rubric,逐条对照检查清单指出**该项目的具体问题**(如"你的 judge prompt 里没有长度惩罚 -> 长度偏差风险"),而非通用建议。
+- 模式 3(梳理):要论文/repo/名称;若用户给了文件或链接,Read 实际内容,从**该 benchmark 的真实设计**中提取 F1-F5,用 references 做对照与补充,不照搬速查表。
+
+引用时同时标注:用户材料(文件名/路径)+ 参考资料(源 ID + 小节)。用户没给材料时,先问"方便给我项目文件/论文吗?",再基于公开信息作答并标注"未读实际材料,以下为通用分析"。
 
 ## 模式路由
 
@@ -43,7 +55,7 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 - 知识只来自 `sources/*.md`(chapter6 / chapter12 / guidebook / chang-survey / yehudai-survey)。
 - 4 份已内置(chapter6/chapter12/guidebook/yehudai-survey,各自保留原许可证,见仓库根 `NOTICE.md`);`chang-survey` 未内置(ACM 版权),需用户运行 `scripts/fetch-sources.sh` 获取 arXiv 开源预印本。
 - 不读 `sources/` 之外的文件(原始 PDF、JSON、images、auto/ 中间产物)。
-- 需要查 benchmark 速查 -> `references/benchmarks.md`;需要查原则 -> `references/design-principles.md`;需要定位小节 -> `references/knowledge-map.md`。
+- 需要查 benchmark 速查 -> `references/benchmarks.md`;需要查原则 -> `references/design-principles.md`;需要定位小节 -> `references/knowledge-map.md`;需要解释术语 -> `references/glossary.md`。
 
 ## 产出边界与异常
 

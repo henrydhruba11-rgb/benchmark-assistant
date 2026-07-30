@@ -1,7 +1,11 @@
 # Playbook · 梳理他人 benchmark
 
 用户给论文 / repo / 名称，按 5 部分框架（F1-F5）拆解他人 benchmark，产出结构化梳理笔记。
-引导规则：先确认要梳理的对象（必要时 Read 用户指向的文件或链接），再按框架逐部分填；每条关键判断标来源（源 ID + 小节，可对照 `references/knowledge-map.md`）；关键论断标原则编号，可对照 `references/design-principles.md`。若是已知 benchmark，F1 先查 `references/benchmarks.md` 作对照，避免重述速查表已收录的要点。
+引导规则:
+1. **先读实际材料** - 要用户给论文/repo/文件;若给了链接或文件,Read 实际内容,从该 benchmark 的真实设计提取 F1-F5,用 references 做对照补充,不照搬速查表。用户没给时先问"方便给我论文/repo 吗?",再基于公开信息作答并标注"未读实际材料"。
+2. **先解释后提取** - 新手/中级档:每个概念先一句白话(查 `references/glossary.md`)再下结论,多用例子;熟练档可紧凑直接用术语。
+3. 每条关键判断标来源(源 ID + 小节 + 原则编号,对照 `references/knowledge-map.md` / `references/design-principles.md`)。
+4. 已知 benchmark,F1 先查 `references/benchmarks.md` 对照,避免重述速查表已收录的要点。
 
 > 每部分格式：**提取什么**（该部分要拆解的维度）-> **依据**（原则编号 + 源 ID / 小节，可指向 knowledge-map 章节或 benchmarks.md 条目）。F5 为外推判断，依据指向元层级方法论而非具体维度。
 
