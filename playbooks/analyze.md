@@ -21,7 +21,7 @@
   - 数据集设计（五挑战如何取舍：明确 vs 开放 / 真实 vs 可控 / 多样 vs 系统 / 成本 vs 覆盖 / 防泄漏；对应原则 2-6）。
   - 指标（过程指标 / 结果指标；采样用 Pass@k 测能力上限还是 Pass^k 测稳定性、Best@k 测质量上限；对应原则 12）。
   - 评分方法（自动匹配 EM/BLEU/ROUGE、functional scorer、LLM-as-judge + Rubric、配对比较 Elo/Bradley-Terry、人工评估；对齐 knowledge-map §F）。
-- **依据:**knowledge-map §C（chapter6 §自动评估环境；yehudai-survey §5 Core Benchmark Dimensions > Environment + §6 Frameworks for Agent Evaluation > Gym-like Environments）；原则 2-6（chapter6 §任务数据集设计的核心挑战；原则 6 防泄漏另见 guidebook §MANAGING CONTAMINATION）；原则 12（chapter6 §评估指标体系，结果与质量指标含 Pass@k / Pass^k / Best@k；guidebook §SAMPLING 采样指标 pass@k / maj@n / cot@n / avg@n）；knowledge-map §F（guidebook §METRICS / §FUNCTIONAL SCORERS / §With judge models；chapter6 §LLM-as-a-Judge：自动化评估的核心 > Rubric 四准则 + 同源模型问题与多源异构评判；chapter6 §配对比较与模型排名）。Rubric 设计遵循原则 9，judge 偏见遵循原则 10。
+- **依据:**knowledge-map §C（chapter6 §自动评估环境；yehudai-survey §5 Core Benchmark Dimensions > Environment + §6 Frameworks for Agent Evaluation > Gym-like Environments）；原则 2-6（chapter6 §任务数据集设计的核心挑战；原则 6 防泄漏另见 guidebook §MANAGING CONTAMINATION）；原则 11、12（chapter6 §评估指标体系，结果与质量指标含 Pass@k / Pass^k / Best@k；guidebook §SAMPLING 采样指标 pass@k / maj@n / cot@n / avg@n）；knowledge-map §F（guidebook §METRICS / §FUNCTIONAL SCORERS / §With judge models；chapter6 §LLM-as-a-Judge：自动化评估的核心 > Rubric 四准则 + 同源模型问题与多源异构评判；chapter6 §配对比较与模型排名）。Rubric 设计遵循原则 9，judge 偏见遵循原则 10。
 
 ### F3. 设计取舍
 

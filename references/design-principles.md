@@ -96,7 +96,7 @@
 
 Pass@k 测能力上限（至少一次成功），Pass^k 测稳定性（全部成功），Best@k 测质量上限。混用导致误判。
 
-来源:chapter6 §评估指标体系（结果与质量指标）。
+来源:chapter6 §评估指标体系（结果与质量指标）；guidebook §SAMPLING（采样指标 pass@k / maj@n / cot@n / avg@n）。
 
 为什么：回归测试用 Pass@k 会掩盖不稳定性，探索性评估用 Pass^k 会因偶发波动误报；选错指标直接导致错误决策。
 

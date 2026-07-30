@@ -31,7 +31,7 @@
 
 - **查:**Pass@k / Pass^k / Best@k 是否用对？测稳定性（Pass^k）还是能力上限（Pass@k）？有无安全零容忍否决项？过程指标与结果指标是否双重覆盖？
 - **红旗:**回归测试用 Pass@k 掩盖不稳定性；探索性评估用 Pass^k 因偶发波动误报；漏安全否决项；只看结果漏轨迹指标。
-- **依据:**原则 12（chapter6 §评估指标体系，结果与质量指标含 Pass@k / Pass^k / Best@k；guidebook §SAMPLING 采样指标 pass@k / maj@n / cot@n / avg@n）。
+- **依据:**原则 11、12（chapter6 §评估指标体系，结果与质量指标含 Pass@k / Pass^k / Best@k；guidebook §SAMPLING 采样指标 pass@k / maj@n / cot@n / avg@n）。
 
 ### R5. Rubric 与评分
 

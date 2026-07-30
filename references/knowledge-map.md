@@ -20,7 +20,7 @@
 - 工具调用/通用能力/数据生成质量
   - chapter12 §12.2 BFCL：工具调用能力评估（line 161）/ §12.3 GAIA：通用 AI 助手能力评估（line 986）/ §12.4 数据生成质量评估（line 1832）
 - 多智能体（覆盖薄，仅辅助）
-  - chapter12 §12.1.2 主流评估基准概览（line 54，略提 ChatEval）
+  - chapter12 §12.1.2 主流评估基准概览（line 54；多智能体协作评估 line 78-79，略提 ChatEval line 78 / SOTOPIA line 79）
 - 通用能力维度（知识/数学/代码/长上下文/指令遵循/助手任务）
   - guidebook §Benchmarks to know in 2025（line 253；含 REASONING AND COMMONSENSE / KNOWLEDGE / MATH / CODE / LONG CONTEXT / INSTRUCTION FOLLOWING / TOOL-CALLING / ASSISTANT TASKS 等子节）
 
@@ -101,6 +101,8 @@
   - chapter6 §从外部评估到内部评估：生产级 Agent 的评估基础设施（line 634；含 §消融基础设施 line 638 / §AB 测试方法论 line 644 / §双层特性开关系统 line 656 / §提示词敏感性评估 line 666）
 - 评估作为学科
   - chang-survey §7 GRAND CHALLENGES AND OPPORTUNITIES FOR FUTURE RESEARCH（line 1525；§1 引言 line 53 亦提 "evaluation should be treated as an essential discipline"）
+- 饱和与污染（saturation / contamination 概念定义）
+  - guidebook §Important concepts（line 241；saturation 定义 line 245 / contamination 定义 line 249）；污染缓解手段见 guidebook §MANAGING CONTAMINATION
 
 ## J. benchmark 速查
 

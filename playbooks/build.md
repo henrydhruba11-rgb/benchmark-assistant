@@ -41,7 +41,7 @@
 ## Step 6. 指标体系
 
 - **问什么:**用哪些过程指标 / 结果指标？要测稳定性（Pass^k）还是能力上限（Pass@k）？有无安全否决项？
-- **依据:**原则 12（chapter6 §评估指标体系，结果与质量指标含 Pass@k / Pass^k / Best@k；guidebook §SAMPLING 采样指标 pass@k / maj@n / cot@n / avg@n；安全合规见 chapter6 §评估指标体系 安全与合规指标）。
+- **依据:**原则 11、12（chapter6 §评估指标体系，结果与质量指标含 Pass@k / Pass^k / Best@k；guidebook §SAMPLING 采样指标 pass@k / maj@n / cot@n / avg@n；安全合规见 chapter6 §评估指标体系 安全与合规指标）。
 - **陷阱:**Pass@k 与 Pass^k 混用（回归测试用 Pass@k 掩盖不稳定性）；漏安全零容忍项；只看结果漏轨迹指标。
 
 ## Step 7. 评分方法
@@ -59,7 +59,7 @@
 ## Step 9. 质量控制
 
 - **问什么:**是否小样本 gating（5 → 50 → 全量）？有无金标集校准 judge？人工抽检比例多少？
-- **依据:**chapter12 §12.2.6 扩展与优化建议（渐进式评估 gating：5→50→全量、accuracy>0.8 才放量）+ §12.4 数据生成质量评估（数据生成质量验证流程）；chapter6 §数据质量控制与迭代改进（人工抽检 / 评判者校准）。
+- **依据:**原则 16（chapter6 §从 Benchmark 报告到系统改进 > §持续迭代）；chapter12 §12.2.6 扩展与优化建议（渐进式评估 gating：5→50→全量、accuracy>0.8 才放量）+ §12.4 数据生成质量评估（数据生成质量验证流程）；chapter6 §数据质量控制与迭代改进（人工抽检 / 评判者校准）。
 - **陷阱:**未校准就放量 LLM judge；金标集不覆盖边界案例；gating 阈值过松导致低质数据混入。
 
 ## Step 10. 产出
