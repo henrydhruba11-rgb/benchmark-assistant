@@ -77,6 +77,8 @@ cp -r benchmark-assistant/skills/benchmark-assistant <project>/.claude/skills/
 
 Restart Claude Code, then say “help me build / review / analyze a benchmark” to auto-trigger, or invoke `/benchmark-assistant` directly.
 
+Works with **Codex**, **Gemini CLI**, and other agents too — adapter files (`.codex-plugin/`, `GEMINI.md`, `AGENTS.md`) are included; see [AGENTS.md](AGENTS.md).
+
 ## Structure
 
 ```
@@ -121,7 +123,17 @@ Citations always use source ID + section, never filenames or author names.
 
 ## Known limitations
 
-The two surveys (`chang-survey`, `yehudai-survey`) were converted from PDF via pypdf as a fallback; their prose has space-joining artifacts (e.g. `a n dhow`) but section headings are intact and locatable. Section-level citations are unaffected; on-demand quotes are lightly cleaned. For higher fidelity, re-convert with [MinerU](https://github.com/opendatalab/MinerU) and replace the corresponding `sources/` files.
+The two surveys (`chang-survey`, `yehudai-survey`) were converted from PDF via pypdf as a fallback; their prose has space-joining artifacts (e.g. `a n dhow`) but section headings are intact and locatable. Section-level citations are unaffected; on-demand quotes are lightly cleaned.
+
+## Acknowledgments
+
+This skill distills methodology from the following reference materials:
+- **The LLM Evaluation Guidebook** - Fourrier, Frere, Penedo, Wolf (2025), Hugging Face.
+- **A Survey on Evaluation of Large Language Models** - Chang et al. (2024), ACM TIST.
+- **A Survey on Evaluation of LLM-based Agents** - Yehudai et al. (2026), ACL.
+- Two Chinese textbook chapters on agent evaluation (Chapter 6: Agent evaluation; Chapter 12: Agent performance evaluation, HelloAgents).
+
+All knowledge in `sources/` is derived from these works; the skill cites them by source ID + section. Credit for the underlying methodology belongs to the original authors.
 
 ## License
 

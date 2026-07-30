@@ -73,6 +73,8 @@ cp -r benchmark-assistant/skills/benchmark-assistant <project>/.claude/skills/
 
 重启 Claude Code,说"帮我构建/复盘/梳理一个 benchmark"即自动触发,或直接 `/benchmark-assistant`。
 
+也兼容 **Codex**、**Gemini CLI** 等其他 agent--仓库已含适配文件(`.codex-plugin/`、`GEMINI.md`、`AGENTS.md`),详见 [AGENTS.md](AGENTS.md)。
+
 ## 结构
 
 ```
@@ -117,7 +119,17 @@ benchmark-assistant/              # 仓库根 = 插件
 
 ## 已知限制
 
-两份 survey(`chang-survey`、`yehudai-survey`)由 PDF 用 pypdf 保底转换,正文有空格粘连(如 `a n dhow`),但小节标题完整可定位。按小节级溯源不受影响,按需引用时会作最小清理。如需更高保真,可用 [MinerU](https://github.com/opendatalab/MinerU) 重新转换后替换 `sources/` 对应文件。
+两份 survey(`chang-survey`、`yehudai-survey`)由 PDF 用 pypdf 保底转换,正文有空格粘连(如 `a n dhow`),但小节标题完整可定位。按小节级溯源不受影响,按需引用时会作最小清理。
+
+## 致谢
+
+本 skill 的方法论提炼自以下参考资料:
+- **The LLM Evaluation Guidebook** -- Fourrier、Frere、Penedo、Wolf(2025),HuggingFace。
+- **A Survey on Evaluation of Large Language Models** -- Chang 等(2024),ACM TIST。
+- **A Survey on Evaluation of LLM-based Agents** -- Yehudai 等(2026),ACL。
+- 两篇中文教材章节:第六章《Agent 的评估》、第十二章《智能体性能评估》(HelloAgents)。
+
+`sources/` 中的知识均来自上述资料,skill 以「源 ID + 小节」引用。方法论本身的版权归原作者所有。
 
 ## 许可证
 
