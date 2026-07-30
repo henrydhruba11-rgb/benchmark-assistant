@@ -9,3 +9,11 @@ __pycache__/
 
 # SDD scratch
 .superpowers/
+
+# 原始资料(归一化副本在 sources/,不纳入仓库以免冗余与体积)
+/Chang 等 - 2024 - A survey on evaluation of large language models.pdf
+/Yehudai 等 - 2026 - A survey on evaluation of LLM-based agents.pdf
+/the-llm-evaluation-guidebook (1).pdf
+/the-llm-evaluation-guidebook/
+/chapter6.md
+/第十二章 智能体性能评估.md
