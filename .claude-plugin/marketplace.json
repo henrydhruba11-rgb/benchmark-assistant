@@ -1,0 +1,16 @@
+{
+  "name": "benchmark-assistant-marketplace",
+  "description": "Marketplace for the benchmark-assistant Claude Code skill",
+  "owner": {
+    "name": "henrydhruba11-rgb",
+    "url": "https://github.com/henrydhruba11-rgb"
+  },
+  "plugins": [
+    {
+      "name": "benchmark-assistant",
+      "description": "LLM/agent benchmark evaluation assistant - guides building, reviewing, and analyzing benchmarks, grounded in 5 reference docs with traceable citations.",
+      "version": "0.1.0",
+      "source": "./"
+    }
+  ]
+}

@@ -16,11 +16,21 @@
 
 ## 安装
 
+### 作为 Claude Code 插件(推荐)
+
 ```bash
+/plugin marketplace add henrydhruba11-rgb/benchmark-assistant
+/plugin install benchmark-assistant@benchmark-assistant-marketplace
+```
+
+### 手动拷贝(不走插件机制)
+
+```bash
+git clone https://github.com/henrydhruba11-rgb/benchmark-assistant
 # 用户级(全局可用)
-cp -r benchmark-assistant ~/.claude/skills/
+cp -r benchmark-assistant/skills/benchmark-assistant ~/.claude/skills/
 # 或项目级
-cp -r benchmark-assistant <project>/.claude/skills/
+cp -r benchmark-assistant/skills/benchmark-assistant <project>/.claude/skills/
 ```
 
 重启 Claude Code,说"帮我构建/复盘/梳理一个 benchmark"即自动触发,或直接 `/benchmark-assistant`。
@@ -28,17 +38,23 @@ cp -r benchmark-assistant <project>/.claude/skills/
 ## 结构
 
 ```
-benchmark-assistant/
-  SKILL.md            # 入口:启动菜单、受众推断、模式路由、溯源规则、边界
-  references/
-    knowledge-map.md  # 主题 -> 源 ID + 小节 索引(溯源骨架)
-    design-principles.md  # 跨源提炼的 16 条设计原则
-    benchmarks.md     # 常见 benchmark 速查(LLM + agent)
-  playbooks/
-    build.md          # 构建模式:10 步引导
-    review.md         # 复盘模式:9 维检查清单
-    analyze.md        # 梳理模式:5 部分框架
-  sources/            # 5 份归一化参考资料(只读 .md)
+benchmark-assistant/              # 仓库根 = 插件
+  .claude-plugin/
+    plugin.json                   # 插件清单
+    marketplace.json              # 插件市场清单
+  skills/
+    benchmark-assistant/          # skill 本体
+      SKILL.md                    # 入口:启动菜单、受众推断、模式路由、溯源规则、边界
+      references/
+        knowledge-map.md          # 主题 -> 源 ID + 小节 索引(溯源骨架)
+        design-principles.md      # 跨源提炼的 16 条设计原则
+        benchmarks.md             # 常见 benchmark 速查(LLM + agent)
+      playbooks/
+        build.md                  # 构建模式:10 步引导
+        review.md                 # 复盘模式:9 维检查清单
+        analyze.md                # 梳理模式:5 部分框架
+      sources/                    # 5 份归一化参考资料(只读 .md)
+  docs/                           # 设计 spec、实现 plan、验证记录
 ```
 
 ## 知识来源
