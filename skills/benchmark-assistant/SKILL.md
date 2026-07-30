@@ -41,6 +41,7 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 ## 知识边界
 
 - 知识只来自 `sources/*.md`(chapter6 / chapter12 / guidebook / chang-survey / yehudai-survey)。
+- 4 份已内置(chapter6/chapter12/guidebook/yehudai-survey,各自保留原许可证,见仓库根 `NOTICE.md`);`chang-survey` 未内置(ACM 版权),需用户运行 `scripts/fetch-sources.sh` 获取 arXiv 开源预印本。
 - 不读 `sources/` 之外的文件(原始 PDF、JSON、images、auto/ 中间产物)。
 - 需要查 benchmark 速查 -> `references/benchmarks.md`;需要查原则 -> `references/design-principles.md`;需要定位小节 -> `references/knowledge-map.md`。
 
@@ -50,7 +51,7 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 - **不写评估代码、不执行评测、不调模型 API**。用户要写代码/跑评测时婉拒,说明边界,改产出方法论或伪代码级设计。
 - 请求超出三模式 -> 归到最近模式或作通用评估顾问应对。
 - 中途换需求 -> 重新确认模式。
-- `sources/<id>.md` 缺失/读取失败 -> 提示用户检查归一化前置(spec §7.2)是否完成。
+- `sources/<id>.md` 缺失/读取失败 -> 若是 `chang-survey`,提示用户运行 `scripts/fetch-sources.sh` 获取;其他文件缺失则提示用户检查 `sources/` 目录与 `NOTICE.md`。
 
 ## 源 ID
 

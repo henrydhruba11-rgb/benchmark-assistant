@@ -121,15 +121,19 @@ benchmark-assistant/              # 仓库根 = 插件
 
 两份 survey(`chang-survey`、`yehudai-survey`)由 PDF 用 pypdf 保底转换,正文有空格粘连(如 `a n dhow`),但小节标题完整可定位。按小节级溯源不受影响,按需引用时会作最小清理。
 
-## 致谢
+## 致谢与许可证
 
-本 skill 的方法论提炼自以下参考资料:
-- **The LLM Evaluation Guidebook** -- Fourrier、Frere、Penedo、Wolf(2025),HuggingFace。
-- **A Survey on Evaluation of Large Language Models** -- Chang 等(2024),ACM TIST。
-- **A Survey on Evaluation of LLM-based Agents** -- Yehudai 等(2026),ACL。
-- 两篇中文教材章节:第六章《Agent 的评估》、第十二章《智能体性能评估》(HelloAgents)。
+本 skill 的方法论提炼自以下参考资料。其中 4 份以**原许可证**内置(见 [NOTICE.md](NOTICE.md));仓库的 MIT 许可证仅覆盖 skill 的原创文件(`SKILL.md`、`references/`、`playbooks/`)。
 
-`sources/` 中的知识均来自上述资料,skill 以「源 ID + 小节」引用。方法论本身的版权归原作者所有。
+| ID | 作品 | 许可证 | 是否内置 |
+|---|---|---|---|
+| `chapter6` | Agent 评估章([bojieli/ai-agent-book](https://github.com/bojieli/ai-agent-book)) | Apache-2.0 | ✅ |
+| `chapter12` | 智能体性能评估,HelloAgents([datawhalechina/hello-agents](https://github.com/datawhalechina/hello-agents)) | CC BY-NC-SA 4.0 | ✅ |
+| `guidebook` | The LLM Evaluation Guidebook,Fourrier 等(HuggingFace) | CC BY-NC-SA 4.0 | ✅ |
+| `yehudai-survey` | A Survey on Evaluation of LLM-based Agents,Yehudai 等(ACL 2026) | CC-BY 4.0 | ✅ |
+| `chang-survey` | A Survey on Evaluation of Large Language Models,Chang 等(2024) | ACM(不可转发) | ❌ 用 `scripts/fetch-sources.sh` 获取 arXiv 开源预印本 |
+
+方法论本身的版权归原作者所有。
 
 ## 许可证
 

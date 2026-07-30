@@ -125,15 +125,19 @@ Citations always use source ID + section, never filenames or author names.
 
 The two surveys (`chang-survey`, `yehudai-survey`) were converted from PDF via pypdf as a fallback; their prose has space-joining artifacts (e.g. `a n dhow`) but section headings are intact and locatable. Section-level citations are unaffected; on-demand quotes are lightly cleaned.
 
-## Acknowledgments
+## Acknowledgments & Licenses
 
-This skill distills methodology from the following reference materials:
-- **The LLM Evaluation Guidebook** - Fourrier, Frere, Penedo, Wolf (2025), Hugging Face.
-- **A Survey on Evaluation of Large Language Models** - Chang et al. (2024), ACM TIST.
-- **A Survey on Evaluation of LLM-based Agents** - Yehudai et al. (2026), ACL.
-- Two Chinese textbook chapters on agent evaluation (Chapter 6: Agent evaluation; Chapter 12: Agent performance evaluation, HelloAgents).
+This skill distills methodology from the following reference materials. Four are bundled under their **original licenses** (see [NOTICE.md](NOTICE.md)); the repo's MIT license covers only the skill's original files (`SKILL.md`, `references/`, `playbooks/`).
 
-All knowledge in `sources/` is derived from these works; the skill cites them by source ID + section. Credit for the underlying methodology belongs to the original authors.
+| ID | Work | License | Bundled? |
+|---|---|---|---|
+| `chapter6` | Agent evaluation chapter ([bojieli/ai-agent-book](https://github.com/bojieli/ai-agent-book)) | Apache-2.0 | ✅ |
+| `chapter12` | Agent performance evaluation, HelloAgents ([datawhalechina/hello-agents](https://github.com/datawhalechina/hello-agents)) | CC BY-NC-SA 4.0 | ✅ |
+| `guidebook` | The LLM Evaluation Guidebook, Fourrier et al. (Hugging Face) | CC BY-NC-SA 4.0 | ✅ |
+| `yehudai-survey` | A Survey on Evaluation of LLM-based Agents, Yehudai et al. (ACL 2026) | CC-BY 4.0 | ✅ |
+| `chang-survey` | A Survey on Evaluation of Large Language Models, Chang et al. (2024) | ACM (not redistributable) | ❌ fetch via `scripts/fetch-sources.sh` (arXiv OA preprint) |
+
+Credit for the underlying methodology belongs to the original authors.
 
 ## License
 
