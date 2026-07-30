@@ -1,86 +1,128 @@
 # benchmark-assistant
 
+**English** | [中文](README.zh.md)
+
 > A Claude Code skill that guides building, reviewing, and analyzing LLM/agent benchmarks — grounded in 5 reference docs with traceable citations.
 
-一个 Claude Code skill:大模型/智能体 benchmark(评估)方法论助手。所有引导基于 `sources/` 下 5 份参考资料,关键论断标注「源 ID + 小节」,可按需引用原文。不写评估代码、不跑评测,只给可溯源的方法论引导与文档产出。
+`benchmark-assistant` is a methodology advisor for LLM/agent benchmark (evaluation) work. Every answer is grounded in 5 reference documents under `sources/`; key claims cite 「source ID + section」 and original text can be quoted on demand. It does **not** write eval code, run evaluations, or call model APIs — it gives traceable methodology guidance and document deliverables.
 
-## 三种模式
+## Three modes
 
-唤起后显式选模式,内置受众推断(按用户熟练度调术语深度)。
+On invocation it shows a menu; audience expertise is inferred once at startup and term depth adapts accordingly.
 
-| 模式 | 做什么 | 产出 |
+| Mode | What it does | Deliverable |
 |---|---|---|
-| **构建 benchmark** | 10 步引导(评估对象解耦 → 能力维度 → 数据集设计 → 环境 → 指标 → 评分 → 统计/成本 → 质量控制) | 《评估方案文档》(含数据集规范、Rubric 模板) |
-| **复盘自己的项目** | 9 维检查清单逐维度诊断 | 按严重度(🔴🟠🟡)排序的问题清单 |
-| **梳理他人的 benchmark** | 5 部分框架拆解 | 结构化梳理笔记 |
+| **Build a benchmark** | 10-step walkthrough (eval-object decoupling → capability dims → dataset design → environment → metrics → scoring → stats/cost → QC) | Evaluation plan doc (with dataset spec & Rubric template) |
+| **Review your project** | 9-dimension checklist diagnosis | Severity-sorted issue list (🔴🟠🟡) |
+| **Analyze others' benchmarks** | 5-part breakdown framework | Structured analysis notes |
 
-## 安装
+## Usage examples
 
-### 作为 Claude Code 插件(推荐)
+**Build a benchmark**
+```
+You: I want to build a benchmark for my customer-service agent.
+Skill: (mode 1) walks 10 decisions — what to evaluate (LLM vs agent vs harness),
+       capability dimensions, dataset design (clarity vs openness, contamination,
+       verifiability), environment, metrics (Pass@k vs Pass^k), scoring (Rubric),
+       statistics & cost, quality control — and writes an evaluation-plan doc with
+       a dataset spec and Rubric template.
+```
+
+**Review your project**
+```
+You: Review my agent eval: 20 cases, GPT as judge scoring 1-5, no calibration.
+Skill: (mode 2) diagnoses 9 dimensions, flags "small sample", "judge uncalibrated",
+       "Pass@k/Pass^k misuse", cites sources, outputs a severity-sorted issue list.
+```
+
+**Analyze an existing benchmark**
+```
+You: Walk me through the GAIA benchmark.
+Skill: (mode 3) looks up references/benchmarks.md, breaks GAIA into 5 parts
+       (what it tests, how, design tradeoffs, limits, what to borrow), cites sources.
+```
+
+**Ask for evidence**
+```
+You: What's the basis for that?
+Skill: Reads sources/<id>.md and quotes the original passage, cited as
+       「source ID + section」.
+```
+
+**Out of scope**
+```
+You: Write me a Python script to run the eval.
+Skill: Declines (no code / no eval execution / no API calls); instead offers
+       methodology or pseudocode-level design.
+```
+
+## Installation
+
+### As a Claude Code plugin (recommended)
 
 ```bash
 /plugin marketplace add henrydhruba11-rgb/benchmark-assistant
 /plugin install benchmark-assistant@benchmark-assistant-marketplace
 ```
 
-### 手动拷贝(不走插件机制)
+### Manual copy (no plugin mechanism)
 
 ```bash
 git clone https://github.com/henrydhruba11-rgb/benchmark-assistant
-# 用户级(全局可用)
+# User-level (global)
 cp -r benchmark-assistant/skills/benchmark-assistant ~/.claude/skills/
-# 或项目级
+# Or project-level
 cp -r benchmark-assistant/skills/benchmark-assistant <project>/.claude/skills/
 ```
 
-重启 Claude Code,说"帮我构建/复盘/梳理一个 benchmark"即自动触发,或直接 `/benchmark-assistant`。
+Restart Claude Code, then say “help me build / review / analyze a benchmark” to auto-trigger, or invoke `/benchmark-assistant` directly.
 
-## 结构
+## Structure
 
 ```
-benchmark-assistant/              # 仓库根 = 插件
+benchmark-assistant/              # repo root = plugin
   .claude-plugin/
-    plugin.json                   # 插件清单
-    marketplace.json              # 插件市场清单
+    plugin.json                   # plugin manifest
+    marketplace.json              # marketplace listing
   skills/
-    benchmark-assistant/          # skill 本体
-      SKILL.md                    # 入口:启动菜单、受众推断、模式路由、溯源规则、边界
+    benchmark-assistant/          # the skill
+      SKILL.md                    # entry: menu, audience inference, routing, grounding, boundaries
       references/
-        knowledge-map.md          # 主题 -> 源 ID + 小节 索引(溯源骨架)
-        design-principles.md      # 跨源提炼的 16 条设计原则
-        benchmarks.md             # 常见 benchmark 速查(LLM + agent)
+        knowledge-map.md          # topic -> source ID + section index
+        design-principles.md      # 16 cross-source design principles
+        benchmarks.md             # common benchmark quick-reference (LLM + agent)
       playbooks/
-        build.md                  # 构建模式:10 步引导
-        review.md                 # 复盘模式:9 维检查清单
-        analyze.md                # 梳理模式:5 部分框架
-      sources/                    # 5 份归一化参考资料(只读 .md)
-  docs/                           # 设计 spec、实现 plan、验证记录
+        build.md                  # build mode: 10-step walkthrough
+        review.md                 # review mode: 9-dimension checklist
+        analyze.md                # analyze mode: 5-part framework
+      sources/                    # 5 normalized reference docs (read-only .md)
+  docs/                           # design spec, implementation plan, verification record
 ```
 
-## 知识来源
+## Knowledge sources
 
-skill 的知识全部来自 `sources/` 下 5 份资料(归一化为 .md):
+All knowledge comes from 5 docs normalized to `.md` under `sources/`:
 
-| 源 ID | 内容 |
+| Source ID | Content |
 |---|---|
-| `chapter6` | Agent 评估(中文教材章) |
-| `chapter12` | Agent 评估(中文教材章) |
-| `guidebook` | The LLM Evaluation Guidebook(HuggingFace) |
-| `chang-survey` | A Survey on Evaluation of Large Language Models(Chang 等, 2024) |
-| `yehudai-survey` | A Survey on Evaluation of LLM-based Agents(Yehudai 等, 2026) |
+| `chapter6` | Agent evaluation (Chinese textbook chapter) |
+| `chapter12` | Agent evaluation (Chinese textbook chapter) |
+| `guidebook` | The LLM Evaluation Guidebook (Hugging Face) |
+| `chang-survey` | A Survey on Evaluation of Large Language Models (Chang et al., 2024) |
+| `yehudai-survey` | A Survey on Evaluation of LLM-based Agents (Yehudai et al., 2026) |
 
-引用一律用源 ID + 小节,不用文件名或作者名。
+Citations always use source ID + section, never filenames or author names.
 
-## 不做哪些(边界)
+## Boundaries
 
-- 不写评估代码、不执行评测、不调模型 API;
-- 用户要写代码/跑评测时婉拒,改产出方法论或伪代码级设计;
-- 话题超出 `sources/` 覆盖时明说"参考资料未覆盖",不编造。
+- No eval code, no evaluation execution, no model API calls.
+- Declines code/eval requests; offers methodology or pseudocode-level design instead.
+- Says “not covered by references” (rather than fabricating) for topics outside `sources/`.
 
-## 已知限制
+## Known limitations
 
-两份 survey(`chang-survey`、`yehudai-survey`)由 PDF 用 pypdf 保底转换,正文有空格粘连(如 `a n dhow`),但小节标题完整可定位。skill 按小节级溯源不受影响,按需引用时会作最小清理。如需更高保真,可用 [MinerU](https://github.com/opendatalab/MinerU) 重新转换后替换 `sources/` 对应文件。
+The two surveys (`chang-survey`, `yehudai-survey`) were converted from PDF via pypdf as a fallback; their prose has space-joining artifacts (e.g. `a n dhow`) but section headings are intact and locatable. Section-level citations are unaffected; on-demand quotes are lightly cleaned. For higher fidelity, re-convert with [MinerU](https://github.com/opendatalab/MinerU) and replace the corresponding `sources/` files.
 
-## 许可证
+## License
 
 [MIT](LICENSE)
