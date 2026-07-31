@@ -20,7 +20,7 @@
 
 | 名称 | 测什么 | 设计要点 | 来源 |
 |---|---|---|---|
-| GAIA / GAIA2 | 通用助手（推理+工具+检索） | 三级难度（L1 已饱和、L3 仍难）；答案唯一可精确字符串匹配；466 题；GAIA2 升级为移动环境（邮件/消息/日历等 app），并引入歧义/噪声/时序约束 | chapter6 §评估任务数据集的设计；yehudai-survey §4 Generalist Agent Evaluation；guidebook §ASSISTANT TASKS |
+| GAIA / GAIA2 | 通用助手（推理+工具+检索） | 三级难度（L1 已饱和、L3 仍难）；466 题；公开验证集答案唯一可精确字符串匹配，私有测试集（leaderboard）有用 LLM judge 评分；GAIA2 升级为移动环境（邮件/消息/日历等 app），并引入歧义/噪声/时序约束 | chapter6 §评估任务数据集的设计；yehudai-survey §4 Generalist Agent Evaluation；guidebook §ASSISTANT TASKS |
 | τ-bench / τ²-bench | 人机交互（航空/零售/电信客服） | 用户模拟器+渐进式信息透露；任务层汇总为二元奖励（便于 Pass^k）；τ²-bench 增量在双控环境（Dual-Control，用户模拟器也能改共享环境）与组合式任务生成 | chapter6 §人机交互型评估环境；yehudai-survey §3.4 Conversational Agents |
 | BFCL（v1–v4） | 函数/工具调用 | AST 匹配+执行响应+状态匹配；v1 四类（simple/multiple/parallel/irrelevance）；v2/v3 加多轮、组织工具、多步逻辑；v3 聚焦工具调用；v4 详见 chapter12 | chapter12 §12.2；yehudai-survey §2.2 Function Calling & Tool Use；guidebook §TOOL-CALLING |
 | WebArena / Mind2Web / WebVoyager | Web 交互 | WebArena 自建可完全复现的沙盒网站（电商/论坛/代码托管等）；Mind2Web 在上百个真实网站上测泛化（离线）；WebVoyager 多模态在线评估（被指性能估计偏乐观，Online-Mind2Web 为更严格的替代） | chapter6 §评估任务数据集的设计；yehudai-survey §3.1 Web Agents |
