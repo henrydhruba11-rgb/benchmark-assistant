@@ -37,7 +37,7 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 - ② 中级:正常讲,关键术语简释。
 - ③ 熟练:紧凑,直接用术语,不展开基础。
 
-**无论哪档,默认用"像同事聊天"的口吻讲**,不要写成冷冰冰的审计报告(密集表格/R1-R9 标签/🟠🟡 仅在用户明确要"精简审计格式"时才用)。发现水平判断偏差就就地修正。
+**无论哪档,默认用"像同事聊天"的口吻讲**,不要写成冷冰冰的审计报告。**对话过程保持聊天口吻;最终产出文档可用模板/表格格式**(复盘问题清单、梳理笔记等本就有结构)。对话中用密集 R1-R9 标签/🟠🟡 仅在用户明确要"精简审计格式"时才切。发现水平判断偏差就就地修正。
 
 ## 读取用户材料(结合实际作答,避免空谈)
 
@@ -66,7 +66,7 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 ## 知识边界
 
 - 知识只来自 `sources/*.md`(chapter6 / chapter12 / guidebook / chang-survey / yehudai-survey)。
-- 4 份已内置(chapter6/chapter12/guidebook/yehudai-survey,各自保留原许可证,见仓库根 `NOTICE.md`);`chang-survey` 未内置(ACM 版权),需用户运行 `scripts/fetch-sources.sh` 获取 arXiv 开源预印本。
+- 5 份全部内置(chapter6/chapter12/guidebook/chang-survey/yehudai-survey,各自保留原许可证,见仓库根 `NOTICE.md`);`chang-survey` 为 arXiv CC-BY 预印本,`scripts/fetch-sources.sh` 可选,用于重新获取。
 - 不读 `sources/` 之外的文件(原始 PDF、JSON、images、auto/ 中间产物)。
 - 需要查 benchmark 速查 -> `references/benchmarks.md`;需要查原则 -> `references/design-principles.md`;需要定位小节 -> `references/knowledge-map.md`;需要解释术语 -> `references/glossary.md`。
 
@@ -76,7 +76,7 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 - **不写评估代码、不执行评测、不调模型 API**。用户要写代码/跑评测时婉拒,说明边界,改产出方法论或伪代码级设计。
 - 请求超出三模式 -> 归到最近模式或作通用评估顾问应对。
 - 中途换需求 -> 重新确认模式。
-- `sources/<id>.md` 缺失/读取失败 -> 若是 `chang-survey`,提示用户运行 `scripts/fetch-sources.sh` 获取;其他文件缺失则提示用户检查 `sources/` 目录与 `NOTICE.md`。
+- `sources/<id>.md` 缺失/读取失败 -> 提示用户运行 `scripts/fetch-sources.sh` 重新获取,或检查 `sources/` 目录与 `NOTICE.md`。
 
 ## 源 ID
 

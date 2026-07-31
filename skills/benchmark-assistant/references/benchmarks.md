@@ -20,9 +20,9 @@
 
 | 名称 | 测什么 | 设计要点 | 来源 |
 |---|---|---|---|
-| GAIA / GAIA2 | 通用助手（推理+工具+检索） | 三级难度（L1 已饱和、L3 仍难）；答案唯一可精确字符串匹配；466 题；GAIA2 升级为移动环境（邮件/消息/日历等 app），并引入歧义/噪声/时序约束/多智能体协作 | chapter6 §评估任务数据集的设计；yehudai-survey §4 Generalist Agent Evaluation；guidebook §ASSISTANT TASKS |
+| GAIA / GAIA2 | 通用助手（推理+工具+检索） | 三级难度（L1 已饱和、L3 仍难）；答案唯一可精确字符串匹配；466 题；GAIA2 升级为移动环境（邮件/消息/日历等 app），并引入歧义/噪声/时序约束 | chapter6 §评估任务数据集的设计；yehudai-survey §4 Generalist Agent Evaluation；guidebook §ASSISTANT TASKS |
 | τ-bench / τ²-bench | 人机交互（航空/零售/电信客服） | 用户模拟器+渐进式信息透露；任务层汇总为二元奖励（便于 Pass^k）；τ²-bench 增量在双控环境（Dual-Control，用户模拟器也能改共享环境）与组合式任务生成 | chapter6 §人机交互型评估环境；yehudai-survey §3.4 Conversational Agents |
-| BFCL（v1–v4） | 函数/工具调用 | AST 匹配+执行响应+状态匹配；v1 四类（simple/multiple/parallel/irrelevance）；v2/v3 加多轮、组织工具、多步逻辑（yehudai-survey）；v3 聚焦工具调用、v4 测 web/搜索（guidebook） | chapter12 §12.2；yehudai-survey §2.2 Function Calling & Tool Use；guidebook §TOOL-CALLING |
+| BFCL（v1–v4） | 函数/工具调用 | AST 匹配+执行响应+状态匹配；v1 四类（simple/multiple/parallel/irrelevance）；v2/v3 加多轮、组织工具、多步逻辑；v3 聚焦工具调用；v4 详见 chapter12 | chapter12 §12.2；yehudai-survey §2.2 Function Calling & Tool Use；guidebook §TOOL-CALLING |
 | WebArena / Mind2Web / WebVoyager | Web 交互 | WebArena 自建可完全复现的沙盒网站（电商/论坛/代码托管等）；Mind2Web 在上百个真实网站上测泛化（离线）；WebVoyager 多模态在线评估（被指性能估计偏乐观，Online-Mind2Web 为更严格的替代） | chapter6 §评估任务数据集的设计；yehudai-survey §3.1 Web Agents |
 | OSWorld / OSWorld-Verified | GUI/桌面操作 | OSWorld 配 134 个独立评估函数，完整 OS 权限，跨三个操作系统（研究表明跨 OS 能力强相关）；OSWorld-Verified 修 15 个月使用中暴露的 300+ 问题（环境/任务描述/验证逻辑/初始状态四类），并迁移到 AWS 实现 50 倍并行加速 | chapter6 §评估任务数据集的设计；yehudai-survey §4 Generalist Agent Evaluation |
 | Terminal-Bench | CLI/终端 | Docker 容器标准化环境；文件系统状态检查+程序执行功能验证；嵌入金丝雀标识符（canary GUID）使数据泄漏可检测；任务注册表 200+，按技术领域×操作复杂度双维度分层 | chapter6 §评估任务数据集的设计；yehudai-survey §3.2 Software Engineering Agents |

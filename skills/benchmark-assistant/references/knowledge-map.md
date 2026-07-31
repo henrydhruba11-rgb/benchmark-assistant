@@ -14,7 +14,7 @@
 ## B. 评什么（能力维度）
 
 - LLM 能力分类（NLU/推理/NLG/多语言/事实性、鲁棒/伦理/偏见/可信）
-  - chang-survey §3 WHAT TO EVALUATE（line 228，heading garbled in source: `3W H A T T O E V A L U A T E`；含 §3.1 NLP Tasks / §3.2 Robustness, Ethics, Bias, and Trustworthiness / §3.3-§3.7 等下游领域）
+  - chang-survey §3 WHAT TO EVALUATE（line 291，heading garbled in source: `3 WHAT TO EV ALUATE`；含 §3.1 NLP Tasks / §3.2 Robustness, Ethics, Bias, and Trustworthiness / §3.3-§3.7 等下游领域）
 - agent 四核心能力（规划/工具/自我反思/记忆）
   - yehudai-survey §2 Agent Capabilities Evaluation（line 86；含 §2.1 Planning and Multi-Step Reasoning / §2.2 Function Calling & Tool Use / §2.3 Self-Reflection / §2.4 Memory）
 - 工具调用/通用能力/数据生成质量
@@ -53,7 +53,7 @@
 - 安全合规与鲁棒性
   - chapter6 §评估指标体系（line 236；安全与合规指标为加粗小标题 line 265，鲁棒性为加粗小标题 line 267）
 - 四类自动指标（准确/校准/公平/鲁棒）
-  - chang-survey §5.1 Automatic Evaluation（line 1270；Table 9 Key Metrics of Automatic Evaluation 列四组：Accuracy / Calibrations / Fairness / Robustness）
+  - chang-survey §5.1 Automatic Evaluation（line 1318；Table 9 Key Metrics of Automatic Evaluation 列四组：Accuracy / Calibrations / Fairness / Robustness）
 - 采样指标（pass@k/maj@n/cot@n/avg@n）
   - guidebook §SAMPLING（line 1087）
 
@@ -72,7 +72,7 @@
   - chapter6 §配对比较与模型排名（line 398）
   - guidebook §WHAT ABOUT REWARD MODELS?（line 1412；含 Bradley-Terry 模型 line 1416）
 - 人工评估（3H+六准则、vibe-check/arena/系统标注）
-  - chang-survey §5.2 Human Evaluation（line 1366）
+  - chang-survey §5.2 Human Evaluation（line 1412）
   - guidebook §With humans（line 1137）
 - 奖励模型
   - guidebook §WHAT ABOUT REWARD MODELS?（line 1412；含 How do I use a Reward Model for Evaluation line 1430 / Pros and Cons of Reward Models line 1444）
@@ -100,7 +100,7 @@
 - 内部评估基础设施（消融/AB/特性开关/提示词敏感性）
   - chapter6 §从外部评估到内部评估：生产级 Agent 的评估基础设施（line 634；含 §消融基础设施 line 638 / §AB 测试方法论 line 644 / §双层特性开关系统 line 656 / §提示词敏感性评估 line 666）
 - 评估作为学科
-  - chang-survey §7 GRAND CHALLENGES AND OPPORTUNITIES FOR FUTURE RESEARCH（line 1525；§1 引言 line 53 亦提 "evaluation should be treated as an essential discipline"）
+  - chang-survey §7 GRAND CHALLENGES AND OPPORTUNITIES FOR FUTURE RESEARCH（line 1570；§1 引言 line 59 亦提 "evaluation should be treated as an essential discipline"）
 - 饱和与污染（saturation / contamination 概念定义）
   - guidebook §Important concepts（line 241；saturation 定义 line 245 / contamination 定义 line 249）；污染缓解手段见 guidebook §MANAGING CONTAMINATION
 

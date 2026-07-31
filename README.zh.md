@@ -131,7 +131,7 @@ benchmark-assistant/              # 仓库根 = 插件
 | `chapter12` | 智能体性能评估,HelloAgents([datawhalechina/hello-agents](https://github.com/datawhalechina/hello-agents)) | CC BY-NC-SA 4.0 | ✅ |
 | `guidebook` | The LLM Evaluation Guidebook,Fourrier 等(HuggingFace) | CC BY-NC-SA 4.0 | ✅ |
 | `yehudai-survey` | A Survey on Evaluation of LLM-based Agents,Yehudai 等(ACL 2026) | CC-BY 4.0 | ✅ |
-| `chang-survey` | A Survey on Evaluation of Large Language Models,Chang 等(2024) | ACM(不可转发) | ❌ 用 `scripts/fetch-sources.sh` 获取 arXiv 开源预印本 |
+| `chang-survey` | A Survey on Evaluation of Large Language Models,Chang 等(2024) | CC-BY 4.0(arXiv 预印本) | ✅ |
 
 方法论本身的版权归原作者所有。
 

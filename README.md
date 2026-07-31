@@ -135,7 +135,7 @@ This skill distills methodology from the following reference materials. Four are
 | `chapter12` | Agent performance evaluation, HelloAgents ([datawhalechina/hello-agents](https://github.com/datawhalechina/hello-agents)) | CC BY-NC-SA 4.0 | ✅ |
 | `guidebook` | The LLM Evaluation Guidebook, Fourrier et al. (Hugging Face) | CC BY-NC-SA 4.0 | ✅ |
 | `yehudai-survey` | A Survey on Evaluation of LLM-based Agents, Yehudai et al. (ACL 2026) | CC-BY 4.0 | ✅ |
-| `chang-survey` | A Survey on Evaluation of Large Language Models, Chang et al. (2024) | ACM (not redistributable) | ❌ fetch via `scripts/fetch-sources.sh` (arXiv OA preprint) |
+| `chang-survey` | A Survey on Evaluation of Large Language Models, Chang et al. (2024) | CC-BY 4.0 (arXiv preprint) | ✅ |
 
 Credit for the underlying methodology belongs to the original authors.
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# fetch-sources.sh - obtain chang-survey (the only non-bundled source) into sources/chang-survey.md
-# The other 4 sources are bundled in the repo under their original licenses (see NOTICE.md).
-# chang-survey is ACM-copyrighted in its published form, so we fetch the arXiv open-access preprint.
-# Run: bash scripts/fetch-sources.sh   (paths resolve relative to this script)
+# fetch-sources.sh - OPTIONAL: re-fetch chang-survey.md from arXiv.
+# chang-survey.md is already bundled (arXiv author preprint, CC-BY 4.0). This script is only
+# needed if you want to regenerate it (e.g. with a better PDF-to-markdown tool). The other 4
+# sources are bundled under their original licenses (see NOTICE.md).
+# Run: bash scripts/fetch-sources.sh [--force]   (paths resolve relative to this script)
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 SRC="$HERE/../sources"
