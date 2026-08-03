@@ -127,7 +127,7 @@ The two surveys (`chang-survey`, `yehudai-survey`) were converted from PDF via p
 
 ## Acknowledgments & Licenses
 
-This skill distills methodology from the following reference materials. Four are bundled under their **original licenses** (see [NOTICE.md](NOTICE.md)); the repo's MIT license covers only the skill's original files (`SKILL.md`, `references/`, `playbooks/`).
+This skill distills methodology from the following reference materials. All five are bundled under their **original licenses** (see [NOTICE.md](NOTICE.md)); the repo's MIT license covers only the skill's original files (`SKILL.md`, `references/`, `playbooks/`).
 
 | ID | Work | License | Bundled? |
 |---|---|---|---|

@@ -123,7 +123,7 @@ benchmark-assistant/              # 仓库根 = 插件
 
 ## 致谢与许可证
 
-本 skill 的方法论提炼自以下参考资料。其中 4 份以**原许可证**内置(见 [NOTICE.md](NOTICE.md));仓库的 MIT 许可证仅覆盖 skill 的原创文件(`SKILL.md`、`references/`、`playbooks/`)。
+本 skill 的方法论提炼自以下参考资料。其中 5 份以**原许可证**内置(见 [NOTICE.md](NOTICE.md));仓库的 MIT 许可证仅覆盖 skill 的原创文件(`SKILL.md`、`references/`、`playbooks/`)。
 
 | ID | 作品 | 许可证 | 是否内置 |
 |---|---|---|---|

@@ -2,7 +2,7 @@
 
 > **开工前**:先按 SKILL.md「开工前询问」问清用户水平 + 是否有论文/repo,校准讲解方式后再开始 F1-F5。
 
-用户给论文 / repo / 名称，按 5 部分框架（F1-F5）拆解他人 benchmark，产出结构化梳理笔记。
+用户给论文 / repo / 名称，按 5 部分框架（F1-F5，含 F4.5 诊断力评估）拆解他人 benchmark，产出结构化梳理笔记。
 引导规则:
 1. **先读实际材料** - 要用户给论文/repo/文件;若给了链接或文件,Read 实际内容,从该 benchmark 的真实设计提取 F1-F5,用 references 做对照补充,不照搬速查表。用户没给时先问"方便给我论文/repo 吗?",再基于公开信息作答并标注"未读实际材料"。
 2. **结合具体代码、讲透结构** - F1-F5 每条要落到用户项目的具体文件:行号;在 F1 之前先给一段"项目结构↔代码对应"导览(目录树 + 关键文件职责),让用户彻底明白项目怎么组织、哪段代码对应哪个设计决策。不停留在泛指。
@@ -11,9 +11,12 @@
 5. 已知 benchmark,F1 先查 `references/benchmarks.md` 对照,避免重述速查表已收录的要点。
 6. **2-3 个例子讲透运行时** - F2 里用 2-3 个真实 case 串起整体环境,讲清运行时流程:先跑哪个文件、进哪个容器/环境、每步输入输出是什么(agent 吃什么、产出什么、verifier 读什么、写什么)。
 7. **附"如何自己跑"** - 末尾给用户从配环境到命令行的上手步骤:装什么、clone 哪、跑哪条命令、每步预期看到什么输出。
-8. **F1-F5 是 skill 的核心价值,必须写厚(主体,不被 6/7 挤短)** - 每部分至少一段实质分析,不是 bullet 概括。每部分要含:① 该设计的具体做法(落到 `文件:行号` + 例子);② 对应方法论原则(原则编号,对照 `design-principles.md`);③ 取舍/陷阱/代价;④ 来源(源 ID + 小节)。运行时流程与"如何自己跑"是辅助脚手架,F1-F5 才是主体--若 F1-F5 薄到任何 agent 读代码就能复述,就失去了本 skill 的方法论增量。
+8. **F1-F5 是 skill 的核心价值,必须写厚(主体,不被 6/7 挤短)** - 每部分至少一段实质分析,不是 bullet 概括。每部分要含:① 该设计的具体做法(落到 `文件:行号` + 例子);② 对应方法论原则(原则编号,对照 `design-principles.md`);③ 取舍/陷阱/代价;④ 证据(见规则 9);⑤ 来源(源 ID + 小节)。运行时流程与"如何自己跑"是辅助脚手架,F1-F5 才是主体--若 F1-F5 薄到任何 agent 读代码就能复述,就失去了本 skill 的方法论增量。
+9. **每条批判性结论必须带证据,禁止只打标签** - 所有判断(尤其 F4 局限与诊断力)必须附至少一项可核查证据:论文/repo 中的数字(样本量、通过率、方差、leaderboard 分差)、代码 `文件:行号`、用户实跑输出、或 sources 原文小节;证据来自哪里就标哪里(用户材料路径 / 论文 arXiv ID / 源 ID + 小节)。禁止"部分饱和""✅ 有风险"这类无依据标签式结论;确实无证据时,显式写"无证据,仅为推测",不伪装成结论。
+10. **覆盖完整,不跳项** - 按本 playbook 的框架做完整分析:F2 必须覆盖环境 / 数据集五挑战 / 指标 / 评分四类;F4 必须覆盖全部批判维度(见 F4 清单);F4.5 诊断力必做。某项确实无材料可分析时,写明"该维度材料不足"并说明缺什么,不许静默跳过。完成后自检一遍清单再交付。
+11. **写到学习者能看懂** - 每个 F 部分开头先用 1-2 句白话说清"这部分在考察什么、为什么重要"(新手/中级档尤其),再展开具体做法与证据;关键机制配一个真实例子(任务、对话片段或代码片段)讲透,不停留在抽象描述。
 
-> 每部分格式：**提取什么**（该部分要拆解的维度）-> **依据**（原则编号 + 源 ID / 小节，可指向 knowledge-map 章节或 benchmarks.md 条目）。F5 为外推判断，依据指向元层级方法论而非具体维度。
+> 每部分格式：**提取什么**（该部分要拆解的维度）-> **依据**（原则编号 + 源 ID / 小节，可指向 knowledge-map 章节或 benchmarks.md 条目）。F4.5 为诊断力评估（评价 benchmark 作为诊断工具的价值）；F5 为外推判断，依据指向元层级方法论而非具体维度。
 
 ---
 
@@ -40,13 +43,34 @@
 
 ### F4. 局限与陷阱
 
-- **提取什么:**是否饱和（性能过人类基线、失去区分力）？是否污染（公开数据进训练集、分数虚高）？复现性如何（prompt / 模板 / 归一化 / 种子 / 模型加载细节是否透明）？已知问题（如 OSWorld 的 300+ 问题被 Verified 修复、WebVoyager 性能估计偏乐观、同源 judge 被钻空子）。
-- **依据:**原则 14 可复现性（guidebook §So, you can't reproduce reported model scores?，含 Different code base / Subtle implementation or loading difference / Different prompt / Different normalization）；饱和与污染概念见 guidebook §Important concepts（saturation / contamination 定义）+ §MANAGING CONTAMINATION（缓解手段）；数据质量控制与迭代见 chapter6 §数据质量控制与迭代改进；OSWorld-Verified 修 300+ 问题见 benchmarks.md OSWorld 条目（chapter6 §评估任务数据集的设计；yehudai-survey §4 Generalist Agent Evaluation）；WebVoyager 偏乐观见 benchmarks.md WebAgents 条目；同源 judge 偏见见原则 10。
+逐条批判，每条按「问题 → 证据(数字/代码/实跑) → 后果 → 来源」展开；禁止只打标签。必须覆盖以下全部维度，材料不足的维度写明"材料不足，缺什么":
+
+- **提取什么:**
+  - **饱和**:性能是否过人类基线、失去区分力？**证据要求**:引用 leaderboard/论文分数或实跑分数，标注时间与模型，而非"部分饱和"标签。
+  - **污染**:公开数据是否可能进训练集、分数虚高？有无缓解手段(canary GUID/参数化/时间新鲜度)?**证据要求**:指出具体公开了什么(任务文件/答案/数据路径)。
+  - **复现性**:prompt/模板/归一化/种子/模型加载是否透明？方差来源有哪些(用户模拟器/温度/供应商后端)?
+  - **构念效度**(指标是否真测到声称的能力):奖励/评分与声称测的能力是否对齐？任务需求里有没有" shortcut "(不交互也能猜对、背答案)?奖励能否被钻空子(reward hacking)?
+  - **评分可靠性**:judge 是否用金标集校准过？评分器自身错误率多少？模糊匹配(子串/哈希)误判风险有多大？同源 judge 偏见?
+  - **统计功效**:样本量 vs 宣称要分辨的最小差异——几十个用例宣称 2-3% 改进即落噪声带宽内；是否报告置信区间/配对分析？方差大头在哪?
+  - **环境/模拟器保真度**:用户模拟器/沙盒行为是否经人类或真实数据验证？仿真与真实的差距会不会让结论失真?
+  - **已知问题**:社区/论文/版本日志暴露的问题(如 OSWorld 300+ 问题被 Verified 修、WebVoyager 性能估计偏乐观、同源 judge 被钻空子)。
+- **依据:**原则 14 可复现性(guidebook §So, you can't reproduce reported model scores?，含 Different code base / Subtle implementation or loading difference / Different prompt / Different normalization);饱和与污染概念见 guidebook §Important concepts(saturation / contamination 定义)+ §MANAGING CONTAMINATION(缓解手段);统计功效见原则 13(chapter6 §评估结果的统计显著性；guidebook §Statistical validity，含配对分析 McNemar、多重比较收紧);评分可靠性见原则 9、10(chapter6 §LLM-as-a-Judge Rubric 四准则 + 同源模型问题；guidebook §EVALUATING YOUR EVALUATOR 校准);构念效度与模拟器保真度源覆盖薄(chapter6 §人机交互型评估环境仅涉用户模拟器设计，chapter6 §可验证性与客观性保障仅涉验证客观性),超出处按通用判断作答并标注"源覆盖薄，以下为通用分析";数据质量控制与迭代见 chapter6 §数据质量控制与迭代改进；OSWorld-Verified 修 300+ 问题见 benchmarks.md OSWorld 条目;WebVoyager 偏乐观见 benchmarks.md WebAgents 条目。
+
+### F4.5 诊断力评估(能否读出改进方向)
+
+评价该 benchmark 作为"诊断工具"的价值——好的 benchmark 不只给总分，还能区分模型、定位短板、读出改进方向:
+
+- **提取什么:**
+  - **区分度**:能否拉开模型差距？公开结果中模型分数是扎堆(饱和/噪声内)还是有梯度？**证据要求**:引用 leaderboard/论文的具体分数差。
+  - **可分解性**:失败能否分解到能力维度？有无维度标签、难度分层、错误分类(如 AndroidWorld 能力标签矩阵、GAIA 三级、τ²-bench task_id 编码)?
+  - **可读改进方向**:从报告能否走到"改哪里"的具体假设(观察 → 假设 → 实验 → 验证)?
+  - **回归价值**:能否作为持续回归基准(版本迭代、防退化),还是一次性考试?
+- **依据:**原则 4 多样 vs 系统(能力维度标注使"杂"变"可诊断";chapter6 §任务分布的系统性设计);原则 8 难度层次化(chapter6 §任务复杂度的层次化设计);chapter6 §从 Benchmark 报告到系统改进(读懂报告 → 从数据到假设 → 从结果到决策 → 持续迭代);原则 13(区分度须超噪声带宽才可读);原则 16 评估作为持续学科(chang-survey §7 Evaluation as a new discipline)。
 
 ### F5. 可借鉴与外推边界
 
 - **提取什么:**对用户自己项目有何启示（可复用的设计模式 / 可避开的陷阱 / 可借鉴的指标与评分）？结论能外推到哪些场景（同类能力维度 / 同类环境 / 同类评估对象）？不能外推到哪里（不同领域 / 不同 harness / 不同采样口径 / 已饱和或已污染的结论不可外推）？
-- **依据:**chapter6 §引言（本章导读：评估体系的首要价值是跟上模型演进，line 23——静态评估集会饱和，评估须嵌入决策闭环）；chang-survey §7 GRAND CHALLENGES AND OPPORTUNITIES FOR FUTURE RESEARCH（Evaluation as a new discipline，line 1525-1528——评估是持续学科，非一次性考试）；持续迭代闭环见原则 16（chapter6 §从 Benchmark 报告到系统改进 > §持续迭代；chang-survey §7）。
+- **依据:**chapter6 §引言（本章导读：评估体系的首要价值是跟上模型演进，line 23——静态评估集会饱和，评估须嵌入决策闭环）；chang-survey §7 GRAND CHALLENGES AND OPPORTUNITIES FOR FUTURE RESEARCH（Evaluation as a new discipline，line 1570——评估是持续学科，非一次性考试）；持续迭代闭环见原则 16（chapter6 §从 Benchmark 报告到系统改进 > §持续迭代；chang-survey §7）。
 
 ---
 
@@ -92,10 +116,22 @@
 - 其他取舍（难度层次化原则 8、分布系统性等）：
 
 ## F4. 局限与陷阱
-- 饱和（guidebook §Important concepts）：☐ 已饱和 ☐ 部分饱和（如 GAIA L1）☐ 未饱和 ☐ 未知
-- 污染（guidebook §MANAGING CONTAMINATION）：☐ 已污染 ☐ 有缓解手段 ☐ 未知
-- 复现性（原则 14）：prompt / 模板 / 归一化 / 种子 / 模型加载是否透明？
+> 每条格式：问题 → 证据（数字/代码/实跑，标出处）→ 后果 → 来源。材料不足的维度写明"材料不足，缺什么"。
+- 饱和（guidebook §Important concepts）：分数证据（leaderboard/论文/实跑 + 时间 + 模型）：
+- 污染（guidebook §MANAGING CONTAMINATION）：具体公开了什么（任务/答案/数据路径）+ 缓解手段：
+- 复现性（原则 14）：prompt / 模板 / 归一化 / 种子 / 模型加载透明度；方差来源：
+- 构念效度（源覆盖薄，通用分析）：奖励是否测到声称能力？有无 shortcut / reward hacking 空间：
+- 评分可靠性（原则 9/10）：judge 校准？评分器错误率？模糊匹配误判风险：
+- 统计功效（原则 13）：样本量 vs 最小可检测差异；是否报告 CI / 配对分析：
+- 环境/模拟器保真度：模拟器行为是否经验证；仿真 vs 真实差距：
 - 已知问题（如 OSWorld 300+ 问题被 Verified 修、WebVoyager 偏乐观、同源 judge 偏见原则 10）：
+
+## F4.5 诊断力评估
+> 回答一个问题：这个 benchmark 能不能帮人"读出改进方向"，还是只给一个总分？
+- 区分度（原则 13）：模型分数梯度证据（具体分差），扎堆还是有区分：
+- 可分解性（原则 4/8）：维度标签 / 难度分层 / 错误分类，能否把失败定位到能力短板：
+- 可读改进方向（chapter6 §从 Benchmark 报告到系统改进）：报告 → 假设 → 行动的通路是否成立：
+- 回归价值（原则 16）：能否持续回归，还是一次性考试：
 
 ## F5. 可借鉴与外推边界
 - 可借鉴（设计模式 / 指标 / 评分 / 防泄漏）：
