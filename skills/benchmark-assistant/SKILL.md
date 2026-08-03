@@ -52,7 +52,7 @@ description: 大模型/智能体 benchmark(评估)助手。当用户想构建、
 
 按用户选择加载对应 playbook 并遵循其流程:
 - 模式 1(构建)-> Read `playbooks/build.md`,执行 10 步引导,产出《评估方案文档》。
-- 模式 2(复盘)-> Read `playbooks/review.md`,按 9 维检查清单诊断,产出按严重度排序的问题清单。
+- 模式 2(复盘)-> Read `playbooks/review.md`,先梳理用户自己的项目(结构/运行时/数据流/评分逻辑)帮其看懂,再按 9 维检查清单诊断,产出按严重度排序的问题清单。
 - 模式 3(梳理)-> Read `playbooks/analyze.md`,按 5 部分框架(含 F4.5 诊断力评估)拆解,产出结构化梳理笔记。
 
 ## 溯源规则
