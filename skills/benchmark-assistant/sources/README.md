@@ -10,19 +10,20 @@ The skill reads 5 reference docs from this directory as `sources/<id>.md`. **All
 | `yehudai-survey` | `yehudai-survey.md` | CC-BY 4.0 |
 | `chang-survey` | `chang-survey.md` | CC-BY 4.0 (arXiv author preprint, arXiv:2307.03109) |
 
-`chang-survey.md` is the **arXiv author preprint** (CC-BY 4.0), not the ACM journal version (ACM-copyrighted, not redistributable). It was converted from the arXiv PDF via `pypdf` as a fallback, so prose has space-joining artifacts (e.g. `EV ALUATE`) but section headings are locatable.
+`chang-survey.md` is the **arXiv author preprint** (CC-BY 4.0), not the ACM journal version (ACM-copyrighted, not redistributable - do not convert from the repo-root Zotero PDF). Both surveys were converted with `pymupdf4llm` (clean markdown headings, no space-joining artifacts).
 
-## Re-fetching (optional)
+## Re-fetching / re-converting (optional)
 
-`scripts/fetch-sources.sh` can re-fetch `chang-survey.md` from arXiv if you want to regenerate it (e.g. with a better PDF-to-markdown tool). Not required for normal use - the bundled copy works out of the box.
+Not required for normal use - the bundled copies work out of the box. To regenerate:
 
 ```bash
-bash scripts/fetch-sources.sh --force
+bash scripts/fetch-sources.sh --force                 # re-download arXiv PDF + convert chang-survey
+tools/.venv/Scripts/python tools/reconvert_surveys.py # re-convert both surveys from their PDFs
 ```
 
 ## Note on citations
 
-`references/knowledge-map.md` cites sources by **section heading** and **line number** (verified against the bundled files). Section headings resolve regardless of conversion; line numbers assume the bundled versions. If you re-fetch/re-convert `chang-survey` with a different tool, headings still match but line numbers may shift.
+`references/knowledge-map.md` cites sources by **section heading** and **line number**. Both are continuously verified against the bundled files by `tools/check_citations.py` (CI). If you re-fetch/re-convert a source, re-run that script to find shifted line anchors, update `knowledge-map.md`, then `python tools/check_snapshot_sync.py --update` to re-record snapshot hashes.
 
 ## Keeping snapshots in sync
 

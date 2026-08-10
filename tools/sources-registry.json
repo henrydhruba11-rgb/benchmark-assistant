@@ -44,7 +44,7 @@
       "origin_url": "https://arxiv.org/pdf/2307.03109",
       "note": "Snapshot derives from the arXiv CC-BY preprint. The repo-root Zotero PDF is the ACM published version (TIST 15(3):39) and is NOT redistributable - never convert from it.",
       "license": "CC-BY 4.0 (arXiv preprint, arXiv:2307.03109)",
-      "snapshot_sha256": "6c22039bddfdb83780643a333a511e4a8290ac3bc69897b1306512c31319114b"
+      "snapshot_sha256": "7dc13b382aa95b74540c40bb3f58b07eb1291b050d8f18fa281a35b0484619c5"
     },
     {
       "id": "yehudai-survey",
@@ -54,7 +54,7 @@
       "sync_mode": "derived",
       "original_sha256": "2c3c80fff5735925378b99528684559e2d47f82e281957dc4b955397186560b1",
       "license": "CC-BY 4.0",
-      "snapshot_sha256": "f42a58c480a5cc053ff3cc371c8b4b2f0ab77e7c22581c862f0c4ad08d17fc4e"
+      "snapshot_sha256": "088813adf3c2d14aaf88ae807e52a92ec7d913d484cfa59a55de6e85495f2c7d"
     }
   ]
 }

@@ -77,7 +77,7 @@
 ### F5. 可借鉴与外推边界
 
 - **提取什么:**对用户自己项目有何启示（可复用的设计模式 / 可避开的陷阱 / 可借鉴的指标与评分）？结论能外推到哪些场景（同类能力维度 / 同类环境 / 同类评估对象）？不能外推到哪里（不同领域 / 不同 harness / 不同采样口径 / 已饱和或已污染的结论不可外推）？
-- **依据:**chapter6 §引言（本章导读：评估体系的首要价值是跟上模型演进，line 23——静态评估集会饱和，评估须嵌入决策闭环）；chang-survey §7 GRAND CHALLENGES AND OPPORTUNITIES FOR FUTURE RESEARCH（Evaluation as a new discipline，line 1570——评估是持续学科，非一次性考试）；持续迭代闭环见原则 16（chapter6 §从 Benchmark 报告到系统改进 > §持续迭代；chang-survey §7）。
+- **依据:**chapter6 §引言（本章导读 line 23：评估体系的首要价值是跟上模型演进——静态评估集会饱和，评估须嵌入决策闭环）；chang-survey §7 GRAND CHALLENGES AND OPPORTUNITIES FOR FUTURE RESEARCH（Evaluation as a new discipline，line 878——评估是持续学科，非一次性考试）；持续迭代闭环见原则 16（chapter6 §从 Benchmark 报告到系统改进 > §持续迭代；chang-survey §7）。
 
 ---
 
