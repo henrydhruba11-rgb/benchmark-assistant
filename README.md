@@ -112,7 +112,7 @@ benchmark-assistant/              # repo root = plugin
 
 Every push/PR runs three checks (`tools/`, stdlib-only Python):
 
-- `check_citations.py` — every 「source ID + §section + line」 reference in `SKILL.md` / `playbooks/` / `references/` must resolve against `sources/` (383 checks; tolerant of conversion artifacts; also guards the principle numbering 1-16 and playbook structures).
+- `check_citations.py` — every 「source ID + §section + line」 reference in `SKILL.md` / `playbooks/` / `references/` must resolve against `sources/` (hundreds of checks; tolerant of conversion artifacts; also guards the principle numbering 1-16 and playbook structures).
 - `check_snapshot_sync.py` — `sources/` snapshots must match the registry's recorded hashes, and (on the maintainer's machine, where the gitignored originals live) must not drift from the originals.
 - `check_versions.py` — `plugin.json` and `marketplace.json` versions must agree.
 

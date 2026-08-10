@@ -1,6 +1,6 @@
 {
   "name": "benchmark-assistant",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "LLM/agent benchmark evaluation assistant - guides building, reviewing, and analyzing benchmarks, grounded in 5 reference docs with traceable citations.",
   "author": {
     "name": "henrydhruba11-rgb",
@@ -9,6 +9,12 @@
   "homepage": "https://github.com/henrydhruba11-rgb/benchmark-assistant",
   "repository": "https://github.com/henrydhruba11-rgb/benchmark-assistant",
   "license": "MIT",
-  "keywords": ["benchmark", "evaluation", "llm", "agent", "eval"],
+  "keywords": [
+    "benchmark",
+    "evaluation",
+    "llm",
+    "agent",
+    "eval"
+  ],
   "skills": "./skills/"
 }

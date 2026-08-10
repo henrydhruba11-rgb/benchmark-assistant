@@ -43,12 +43,14 @@ LINE_REF_RE = re.compile(r"line\s*(?P<n>\d+)(?:\s*-\s*(?P<m>\d+))?")
 PRINCIPLE_RE = re.compile(r"原则\s*(\d+)")
 PATH_REF_RE = re.compile(r"`((?:playbooks|references|sources|scripts)/[^`\s]+)`")
 
-INTERNAL_IDS = {"knowledge-map"}  # ids that point at references/<id>.md, not sources/
+INTERNAL_IDS = {"knowledge-map": "references/knowledge-map.md"}  # id -> file under the skill dir
 ID_SKIP = {"spec"}  # 'spec §...' refers to docs/superpowers design specs, not sources/
-# annotation glue stripped from content-ref phrases before matching
+# annotation glue stripped from content-ref phrases before matching; prefix/suffix only,
+# longest first (本章导读 before 章首), single chars last
 DESCRIPTORS = [
-    "为加粗小标题", "加粗小标题", "列四组", "等下游领域", "等子节", "定义", "说明",
-    "开篇", "章首", "摘要", "本章导读", "代码示例", "亦提", "略提", "后者含", "采样指标", "含", "属", "内", "见", "即",
+    "为加粗小标题", "加粗小标题", "列四组", "等下游领域", "等子节", "本章导读", "代码示例",
+    "采样指标", "后者含", "定义", "说明", "开篇", "章首", "摘要", "亦提", "略提",
+    "含", "属", "内", "见", "即",
 ]
 
 errors: list[str] = []
@@ -149,8 +151,13 @@ def clean_phrase(raw: str) -> str:
     raw = LINE_REF_RE.sub("", raw)  # drop earlier `line N` refs in `... line 625 / X line 632` chains
     frags = [f.strip() for f in re.split(r"[，,、：:；;（）()\[\]/]|\s+vs\s+", raw) if f.strip()]
     frag = frags[-1] if frags else ""
-    for d in DESCRIPTORS:
-        frag = frag.replace(d, "")
+    changed = True  # strip annotation glue, prefix/suffix only (global replace would eat 内容->容)
+    while changed and frag:
+        changed = False
+        for d in DESCRIPTORS:
+            if frag.startswith(d) or frag.endswith(d):
+                frag = frag.removeprefix(d).removesuffix(d).strip()
+                changed = True
     return frag.strip(" -—–\"'“”‘’")
 
 
@@ -218,7 +225,7 @@ def scan_file(path: Path, sources: dict[str, Source], internal: dict[str, Path])
                 continue
             if sid in internal:
                 target = load_lines(internal[sid])
-                heading = re.compile(r"^##\s*" + re.escape(title.strip()) + r"[.\s]")
+                heading = re.compile(r"^##\s*" + re.escape(title.strip()) + r"(?:[.\s（(]|$)")
                 checked += 1
                 if not any(heading.match(t) for t in target):
                     err(f"{cite}: knowledge-map §{title.strip()} -> no '## {title.strip()}' "
@@ -294,7 +301,7 @@ def main() -> int:
             continue
         aliases = {norm(k): norm(v) for k, v in entry.get("aliases", {}).items()}
         sources[entry["id"]] = Source(entry["id"], snap, aliases)
-    internal = {"knowledge-map": SKILL_DIR / "references" / "knowledge-map.md"}
+    internal = {k: SKILL_DIR / v for k, v in INTERNAL_IDS.items()}
 
     files = [SKILL_DIR / "SKILL.md"]
     files += sorted((SKILL_DIR / "playbooks").glob("*.md"))

@@ -107,7 +107,7 @@ benchmark-assistant/              # 仓库根 = 插件
 
 每次 push/PR 自动运行三项检查(`tools/`,仅依赖 Python 标准库):
 
-- `check_citations.py` — `SKILL.md` / `playbooks/` / `references/` 中所有「源 ID + §小节 + 行号」引用必须能对上 `sources/` 实际文本(383 项;容错转换瑕疵;同时守护原则编号 1-16 与 playbook 结构)。
+- `check_citations.py` — `SKILL.md` / `playbooks/` / `references/` 中所有「源 ID + §小节 + 行号」引用必须能对上 `sources/` 实际文本(数百项;容错转换瑕疵;同时守护原则编号 1-16 与 playbook 结构)。
 - `check_snapshot_sync.py` — `sources/` 快照必须与注册表记录的 hash 一致;在维护者本机(原始文件不进仓库)还会比对快照与原文是否漂移。
 - `check_versions.py` — `plugin.json` 与 `marketplace.json` 版本号必须一致。
 

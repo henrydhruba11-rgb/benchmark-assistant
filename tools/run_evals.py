@@ -11,11 +11,16 @@ Usage:
   python tools/run_evals.py                 # full suite
   python tools/run_evals.py --core          # 5-scenario smoke set (S01,S03,S05,S08,S09)
   python tools/run_evals.py --only S03,S09  # subset
-  python tools/run_evals.py --cmd "claude -p --dangerously-skip-permissions"  # 换 agent CLI
+  python tools/run_evals.py --cmd "claude -p --dangerously-skip-permissions"  # other agent CLI
   python tools/run_evals.py --dry-run       # print the composed prompts, run nothing
 
-Outputs evals/last-run/<id>.txt (raw responses) for manual review. Exit 1 if any
-deterministic check fails.
+Outputs evals/last-run/<id>.txt (RAW responses, exactly as the CLI printed them) for
+manual review; deterministic checks run on a lightly cleaned copy (CLI banner/progress
+lines stripped). After the suite, the working tree is diffed for files the sub-agent
+may have written despite the no-write instruction. Exit 1 if any deterministic check fails.
+
+Note for --cmd on Windows: npm-installed CLIs are often `*.cmd` shims, which list-form
+subprocess cannot execute - use the real .exe path or `{prompt}` placeholder form.
 """
 
 from __future__ import annotations
@@ -34,8 +39,9 @@ OUT_DIR = REPO_ROOT / "evals" / "last-run"
 CORE = ["S01", "S03", "S05", "S08", "S09"]
 
 PREAMBLE = (
-    "先阅读 {skill}/SKILL.md 并严格遵循其中的全部指令(可按需阅读它引用的 "
-    "playbooks/、references/、sources/ 文件)。你现在就是这个 skill。回应以下用户输入:"
+    '先阅读 "{skill}/SKILL.md" 并严格遵循其中的全部指令(可按需阅读它引用的 '
+    "playbooks/、references/、sources/ 文件)。你现在就是这个 skill。"
+    "直接把回应打印出来,不要创建或修改任何文件。回应以下用户输入:"
 )
 
 
@@ -43,18 +49,22 @@ def compose_prompt(scenario: dict) -> str:
     return PREAMBLE.format(skill=SKILL_DIR.as_posix()) + "\n\n" + scenario["prompt"]
 
 
-def clean_output(text: str) -> str:
-    """Strip CLI chrome (version banner, progress bullets, session footer) from print-mode output."""
-    lines = text.split("\n")
-    out = [ln for ln in lines
-           if not ln.startswith("kimi version")
-           and not ln.startswith("To resume this session:")
-           and not ln.lstrip().startswith("• ")]
+def clean_output(text: str, cli_name: str) -> str:
+    """Strip CLI chrome for judging. kimi print mode adds a version banner, `• ` progress
+    bullets and a session footer; the `• ` rule is kimi-only so other CLIs' legitimate
+    bullet lines survive."""
+    out = []
+    for ln in text.split("\n"):
+        if ln.startswith("kimi version") or ln.startswith("To resume this session:"):
+            continue
+        if cli_name == "kimi" and ln.lstrip().startswith("• "):
+            continue
+        out.append(ln)
     return "\n".join(out).strip()
 
 
-def run_one(cli: list[str], scenario: dict, timeout: int) -> tuple[str, str]:
-    """Returns (response_text, error)."""
+def run_one(cli: list[str], scenario: dict, timeout: int) -> tuple[str, str, str]:
+    """Returns (raw_response, cleaned_response, error)."""
     prompt = compose_prompt(scenario)
     cmd = [prompt if part == "{prompt}" else part for part in cli]
     if "{prompt}" not in cli:
@@ -63,12 +73,13 @@ def run_one(cli: list[str], scenario: dict, timeout: int) -> tuple[str, str]:
         proc = subprocess.run(cmd, cwd=REPO_ROOT, capture_output=True, text=True,
                               encoding="utf-8", errors="replace", timeout=timeout)
     except subprocess.TimeoutExpired:
-        return "", f"timeout after {timeout}s"
+        return "", "", f"timeout after {timeout}s"
     except FileNotFoundError:
-        return "", f"CLI not found: {cli[0]}"
+        return "", "", f"CLI not found: {cli[0]} (on Windows, npm *.cmd shims need the real .exe path)"
     if proc.returncode != 0:
-        return "", f"exit {proc.returncode}: {proc.stderr.strip()[:300]}"
-    return clean_output(proc.stdout), ""
+        return "", "", f"exit {proc.returncode}: {proc.stderr.strip()[:300]}"
+    raw = proc.stdout.strip()
+    return raw, clean_output(raw, Path(cli[0]).stem.lower()), ""
 
 
 def check(response: str, expect: dict) -> list[str]:
@@ -83,6 +94,11 @@ def check(response: str, expect: dict) -> list[str]:
         if s in response:
             failures.append(f"forbidden present: {s!r}")
     return failures
+
+
+def git_porcelain() -> str:
+    return subprocess.run(["git", "status", "--porcelain"], cwd=REPO_ROOT,
+                          capture_output=True, text=True).stdout
 
 
 def main() -> int:
@@ -115,17 +131,18 @@ def main() -> int:
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     cli = args.cmd.split()
+    tree_before = git_porcelain()
     failed = 0
     for s in suite:
         t0 = time.time()
-        response, error = run_one(cli, s, args.timeout)
-        (OUT_DIR / f"{s['id']}.txt").write_text(response or f"<{error}>", encoding="utf-8")
+        raw, cleaned, error = run_one(cli, s, args.timeout)
+        (OUT_DIR / f"{s['id']}.txt").write_text(raw or f"<{error}>", encoding="utf-8")
         elapsed = time.time() - t0
         if error:
             failed += 1
             print(f"[FAIL] {s['id']} {s['title']} ({elapsed:.0f}s) - {error}")
             continue
-        failures = check(response, s["expect"])
+        failures = check(cleaned, s["expect"])
         status = "PASS" if not failures else "FAIL"
         failed += bool(failures)
         print(f"[{status}] {s['id']} {s['title']} ({elapsed:.0f}s)")
@@ -133,6 +150,13 @@ def main() -> int:
             print(f"       {f}")
         for m in s["expect"].get("manual", []):
             print(f"       [manual review] {m}")
+
+    pollution = git_porcelain()
+    if pollution != tree_before:
+        new = [ln for ln in pollution.splitlines() if ln not in tree_before.splitlines()]
+        print(f"\n[WARN] working tree changed during the run (sub-agent wrote files?):")
+        for ln in new:
+            print(f"       {ln}")
 
     print(f"\n{len(suite)} scenario(s), {failed} failed. Raw responses: evals/last-run/")
     return 1 if failed else 0
