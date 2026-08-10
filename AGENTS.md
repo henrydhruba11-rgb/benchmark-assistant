@@ -31,4 +31,6 @@ The skill content lives at `skills/benchmark-assistant/`. When the user asks to 
 - `python tools/check_versions.py` — `plugin.json` / `marketplace.json` version parity.
 - `tools/reconvert_surveys.py` — re-converts the two survey PDFs via pymupdf4llm (venv at `tools/.venv/`). chang-survey derives ONLY from the arXiv preprint (CC-BY); the repo-root Zotero PDF is the ACM version and must not be bundled.
 
+`evals/` holds the golden-scenario self-eval suite (12 scenarios, each mapped to a spec section). After changing `SKILL.md` / `playbooks/` behavior, run `python tools/run_evals.py --core` (needs a local agent CLI); run the full suite before releases. Protocol: `evals/README.md`.
+
 `tools/sources-registry.json` is the machine-readable source of truth for the knowledge base (IDs, snapshot paths/hashes, originals, licenses, citation aliases). Adding a new reference doc = registry entry + snapshot file.

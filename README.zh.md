@@ -32,6 +32,7 @@ Skill:(模式 1)走 10 步决策——评估对象(LLM/agent/harness 解耦)、�
 Skill:(模式 2)按 9 维诊断,指出"样本量小""judge 未校准""Pass@k/Pass^k 混用"等问题,
      标来源,产出按严重度排序的问题清单。
 ```
+这个场景的真实模式 2 产出样例:[docs/examples/review-report-example.md](docs/examples/review-report-example.md)。
 
 **梳理他人的 benchmark**
 ```
@@ -98,6 +99,7 @@ benchmark-assistant/              # 仓库根 = 插件
         fetch-sources.sh          # 可选:从 arXiv 重新获取 chang-survey
       sources/                    # 5 份归一化参考资料(只读 .md)+ README.md(许可证与快照同步说明)
   tools/                          # 仓库维护(CI):引用图谱 lint、快照同步检查、清单版本检查、survey 重转、sources-registry.json
+  evals/                          # 自评测黄金场景套件(scenarios.json + 运行协议)
   docs/                           # 设计 spec、实现 plan、验证记录
 ```
 
@@ -108,6 +110,8 @@ benchmark-assistant/              # 仓库根 = 插件
 - `check_citations.py` — `SKILL.md` / `playbooks/` / `references/` 中所有「源 ID + §小节 + 行号」引用必须能对上 `sources/` 实际文本(383 项;容错转换瑕疵;同时守护原则编号 1-16 与 playbook 结构)。
 - `check_snapshot_sync.py` — `sources/` 快照必须与注册表记录的 hash 一致;在维护者本机(原始文件不进仓库)还会比对快照与原文是否漂移。
 - `check_versions.py` — `plugin.json` 与 `marketplace.json` 版本号必须一致。
+
+skill 的行为由黄金场景套件覆盖(`evals/`,12 个场景各对应规范小节):`python tools/run_evals.py --core` 跑 5 题冒烟——需要本机 agent CLI,所以它是发布关卡而非 CI 关卡。详见 `evals/README.md`。
 
 ## 知识来源
 

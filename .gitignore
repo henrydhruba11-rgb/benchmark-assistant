@@ -19,3 +19,4 @@ __pycache__/
 /第十二章 智能体性能评估.md
 tools/.venv/
 tools/_conv/
+evals/last-run/

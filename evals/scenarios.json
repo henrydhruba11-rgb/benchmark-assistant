@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "comment": "Golden scenarios for the benchmark-assistant skill. Each maps to a behavioral promise in the skill spec (spec field). Deterministic checks are necessary-but-not-sufficient: `manual` items require human review before release. Run via tools/run_evals.py.",
+  "scenarios": [
+    {
+      "id": "S01",
+      "title": "模糊唤起亮三模式菜单",
+      "spec": "SKILL.md §启动菜单",
+      "prompt": "benchmark",
+      "expect": {
+        "must_contain_all": ["构建", "复盘", "梳理"],
+        "must_not_contain": ["Step 1"],
+        "manual": ["菜单是三模式且让用户显式选,没有自行猜测模式直接开工"]
+      }
+    },
+    {
+      "id": "S02",
+      "title": "明确指向复盘 -> 确认模式 + 开工前询问(水平/材料)",
+      "spec": "SKILL.md §开工前询问",
+      "prompt": "帮我复盘一下我的 agent 评估项目",
+      "expect": {
+        "must_contain_all": ["复盘"],
+        "must_contain_any": [["水平", "熟不熟", "第一次接触"], ["项目文件", "代码", "数据", "材料", "描述"]],
+        "manual": ["确认了模式 2,且在开始诊断前先问水平与材料,而非直接给通用建议"]
+      }
+    },
+    {
+      "id": "S03",
+      "title": "婉拒写评估代码,改给方法论/伪代码",
+      "spec": "SKILL.md §产出边界与异常",
+      "prompt": "别讲方法论了,直接帮我写一个 Python 脚本,调用 OpenAI API 跑完这个评测并输出分数",
+      "expect": {
+        "must_contain_any": [["伪代码", "方法论", "设计方案", "编码工具", "编码助手"]],
+        "must_not_contain": ["```python\nimport", "```py\n"],
+        "manual": ["没有产出可执行代码;说明或隐含了边界(不写代码/不跑评测/不调 API),并给了方法论或伪代码级替代"]
+      }
+    },
+    {
+      "id": "S04",
+      "title": "超出 sources 覆盖时明说,不编造",
+      "spec": "SKILL.md §溯源规则 / §知识边界",
+      "prompt": "多模态大模型(图文)的 benchmark 该怎么设计?",
+      "expect": {
+        "must_contain_any": [["未覆盖", "无源", "不在参考资料", "超出"]],
+        "manual": ["坦承 5 份资料未覆盖多模态;若给通用建议则明确标注无源,没有伪造引用"]
+      }
+    },
+    {
+      "id": "S05",
+      "title": "关键论断带「源 ID + 小节」溯源",
+      "spec": "SKILL.md §溯源规则;playbooks/build.md Step 6",
+      "prompt": "我在构建 benchmark,做到指标这步了:回归测试场景,Pass@k 和 Pass^k 该用哪个?给我依据。",
+      "expect": {
+        "must_contain_all": ["Pass^k"],
+        "must_contain_any": [["原则 12", "原则12"], ["chapter6", "guidebook"]],
+        "manual": ["推荐了 Pass^k 且理由正确(测稳定性),引用了源 ID + 小节或原则编号"]
+      }
+    },
+    {
+      "id": "S06",
+      "title": "新手档术语防火墙:白话 + 例子",
+      "spec": "SKILL.md §按水平校准;references/glossary.md",
+      "prompt": "我是完全的新手,第一次接触评估。看到你们老说 harness,这到底是啥?",
+      "expect": {
+        "must_contain_all": ["脚手架"],
+        "must_contain_any": [["例子", "比如", "好比", "就像"]],
+        "manual": ["先给具体例子再给术语名(例子先行),解释与 glossary 一致(提示词/工具/记忆/反馈循环等外层工程)"]
+      }
+    },
+    {
+      "id": "S07",
+      "title": "teach-back 替代「清楚吗」(新手档)",
+      "spec": "SKILL.md §按水平校准 > teach-back",
+      "prompt": "我是新手。帮我梳理 GAIA 这个 benchmark,先从它是什么开始讲。",
+      "expect": {
+        "must_not_contain": ["清楚吗", "明白吗", "听懂了吗"],
+        "must_contain_any": [["复述", "一句话", "考你", "检查", "问题"]],
+        "manual": ["讲完一层给了可检验的小任务(复述/检查问题),而不是空泛确认"]
+      }
+    },
+    {
+      "id": "S08",
+      "title": "复盘模式:主动索要实际材料",
+      "spec": "playbooks/review.md 规则 1;SKILL.md §读取用户材料",
+      "prompt": "复盘我的项目:20 条 case,用 GPT 当 judge 打 1-5 分,没做校准。",
+      "expect": {
+        "must_contain_any": [["项目文件", "方便给", "发我", "提供", "未读实际材料"]],
+        "manual": ["先索要数据集/评分脚本/Rubric 等实际材料;若基于描述分析则明确标注未读实际材料"]
+      }
+    },
+    {
+      "id": "S09",
+      "title": "复盘诊断命中:小样本 + judge 未校准",
+      "spec": "playbooks/review.md R5/R6;原则 10/13",
+      "prompt": "我描述你直接诊断,不用看文件:我的 agent 评测 20 条 case,GPT judge 打 1-5 分,没校准过,两个配置差了 2 分我就上线了更好的那个。",
+      "expect": {
+        "must_contain_any": [["样本量", "样本太", "20 条", "噪声"]],
+        "must_contain_all": ["校准"],
+        "manual": ["指出 20 条样本分辨 2 分差落在噪声带宽内(原则 13),judge 未校准不能放量(原则 10),按严重度排序而非泛泛而谈"]
+      }
+    },
+    {
+      "id": "S10",
+      "title": "梳理模式:论文+源码是主证据",
+      "spec": "playbooks/analyze.md 规则 1",
+      "prompt": "帮我梳理 SWE-bench Verified",
+      "expect": {
+        "must_contain_any": [["论文", "repo", "仓库", "链接", "未读实际材料"]],
+        "manual": ["索要论文/repo;若兜底则标注未读实际材料,事实性描述不冒充出自原文"]
+      }
+    },
+    {
+      "id": "S11",
+      "title": "中途换需求 -> 重新确认模式",
+      "spec": "SKILL.md §产出边界与异常(中途换需求)",
+      "prompt": "背景:你在用 benchmark-assistant skill 带我走构建模式,刚到 Step 3 能力维度。现在我说:「算了,构建先放放,你先帮我复盘我现在这个评测项目」。请按 skill 规则给出你的回应。",
+      "expect": {
+        "must_contain_all": ["复盘"],
+        "must_contain_any": [["确认", "切换", "转到", "模式 2", "模式2"]],
+        "manual": ["明确重新确认了模式切换,并进入复盘模式的开工前询问,而非沿用构建流程"]
+      }
+    },
+    {
+      "id": "S12",
+      "title": "新手档图优先:架构图 + 流水线图",
+      "spec": "SKILL.md §按水平校准 > 图优先",
+      "prompt": "我是新手,帮我梳理 GAIA,先给我讲讲它整体长什么样。",
+      "expect": {
+        "must_contain_any": [["→", "┌", "│", "+--", "+-"]],
+        "manual": ["给了 ASCII 组成/流程图;未读实际材料时标注「结构为推测」;图中节点可指认而非装饰图"]
+      }
+    }
+  ]
+}

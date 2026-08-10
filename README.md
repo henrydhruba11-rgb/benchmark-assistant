@@ -34,6 +34,7 @@ You: Review my agent eval: 20 cases, GPT as judge scoring 1-5, no calibration.
 Skill: (mode 2) diagnoses 9 dimensions, flags "small sample", "judge uncalibrated",
        "Pass@k/Pass^k misuse", cites sources, outputs a severity-sorted issue list.
 ```
+A real mode-2 output on exactly this scenario: [docs/examples/review-report-example.md](docs/examples/review-report-example.md).
 
 **Analyze an existing benchmark**
 ```
@@ -103,6 +104,7 @@ benchmark-assistant/              # repo root = plugin
       sources/                    # 5 normalized reference docs (read-only .md) + README.md (licenses & snapshot-sync note)
   tools/                          # repo maintenance (CI): citation-graph lint, snapshot-sync check,
                                   # manifest-version check, survey re-conversion, sources-registry.json
+  evals/                          # golden-scenario self-eval suite (scenarios.json + run protocol)
   docs/                           # design spec, implementation plan, verification record
 ```
 
@@ -113,6 +115,8 @@ Every push/PR runs three checks (`tools/`, stdlib-only Python):
 - `check_citations.py` — every 「source ID + §section + line」 reference in `SKILL.md` / `playbooks/` / `references/` must resolve against `sources/` (383 checks; tolerant of conversion artifacts; also guards the principle numbering 1-16 and playbook structures).
 - `check_snapshot_sync.py` — `sources/` snapshots must match the registry's recorded hashes, and (on the maintainer's machine, where the gitignored originals live) must not drift from the originals.
 - `check_versions.py` — `plugin.json` and `marketplace.json` versions must agree.
+
+The skill's behavior is covered by a golden-scenario suite (`evals/`, 12 scenarios each mapped to a spec section): run `python tools/run_evals.py --core` for a 5-scenario smoke set — needs a local agent CLI, so it gates releases rather than CI. See `evals/README.md`.
 
 ## Knowledge sources
 
