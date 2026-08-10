@@ -12,7 +12,7 @@ The skill content lives at `skills/benchmark-assistant/`. When the user asks to 
 
 1. Read `skills/benchmark-assistant/SKILL.md` and follow its instructions.
 2. It shows a 3-mode menu (build / review / analyze) and infers audience expertise once at startup.
-3. As directed, read `references/` (knowledge-map, design-principles, benchmarks), `playbooks/` (build / review / analyze), and `sources/` (5 reference docs) - all paths relative to the skill directory.
+3. As directed, read `references/` (knowledge-map, design-principles, benchmarks, glossary), `playbooks/` (build / review / analyze), and `sources/` (5 reference docs) - all paths relative to the skill directory.
 4. Cite key claims as 「source ID + section」; quote original text from `sources/<id>.md` on demand. If a topic is outside `sources/`, say so rather than fabricating.
 
 ## Agent-specific entry points

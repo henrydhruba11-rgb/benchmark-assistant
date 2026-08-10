@@ -14,7 +14,7 @@ On invocation it shows a menu; audience expertise is inferred once at startup an
 |---|---|---|
 | **Build a benchmark** | 10-step walkthrough (eval-object decoupling → capability dims → dataset design → environment → metrics → scoring → stats/cost → QC) | Evaluation plan doc (with dataset spec & Rubric template) |
 | **Review your project** | 9-dimension checklist diagnosis | Severity-sorted issue list (🔴🟠🟡) |
-| **Analyze others' benchmarks** | 5-part breakdown framework | Structured analysis notes |
+| **Analyze others' benchmarks** | 5-part breakdown framework (L0–L3 walkthrough, then methodology judgment) | Structured analysis notes (with plain-language "3-minute version" + ASCII architecture/pipeline diagrams) |
 
 ## Usage examples
 
@@ -88,16 +88,19 @@ benchmark-assistant/              # repo root = plugin
     marketplace.json              # marketplace listing
   skills/
     benchmark-assistant/          # the skill
-      SKILL.md                    # entry: menu, audience inference, routing, grounding, boundaries
+      SKILL.md                    # entry: menu, audience inference + teaching protocol, routing, grounding, boundaries
       references/
         knowledge-map.md          # topic -> source ID + section index
         design-principles.md      # 16 cross-source design principles
         benchmarks.md             # common benchmark quick-reference (LLM + agent)
+        glossary.md               # plain-language term definitions for novice/intermediate audiences
       playbooks/
         build.md                  # build mode: 10-step walkthrough
         review.md                 # review mode: 9-dimension checklist
         analyze.md                # analyze mode: 5-part framework
-      sources/                    # 5 normalized reference docs (read-only .md)
+      scripts/
+        fetch-sources.sh          # optional re-fetch of chang-survey from arXiv
+      sources/                    # 5 normalized reference docs (read-only .md) + README.md (licenses & snapshot-sync note)
   docs/                           # design spec, implementation plan, verification record
 ```
 

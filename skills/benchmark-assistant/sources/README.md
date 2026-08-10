@@ -23,3 +23,7 @@ bash scripts/fetch-sources.sh --force
 ## Note on citations
 
 `references/knowledge-map.md` cites sources by **section heading** and **line number** (verified against the bundled files). Section headings resolve regardless of conversion; line numbers assume the bundled versions. If you re-fetch/re-convert `chang-survey` with a different tool, headings still match but line numbers may shift.
+
+## Keeping snapshots in sync
+
+The files here are **snapshots**. The originals at the repo root (`chapter6.md`, `第十二章 智能体性能评估.md`, the guidebook copy, etc.) are living documents — after they are updated, re-run the normalization step (implementation plan Task 2 in `docs/superpowers/plans/`) to refresh this directory, otherwise citations and line numbers will silently drift out of date.

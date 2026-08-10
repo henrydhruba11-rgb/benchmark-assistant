@@ -14,7 +14,7 @@
 |---|---|---|
 | **构建 benchmark** | 10 步引导(评估对象解耦 -> 能力维度 -> 数据集设计 -> 环境 -> 指标 -> 评分 -> 统计/成本 -> 质量控制) | 《评估方案文档》(含数据集规范、Rubric 模板) |
 | **复盘自己的项目** | 9 维检查清单逐维度诊断 | 按严重度(🔴🟠🟡)排序的问题清单 |
-| **梳理他人的 benchmark** | 5 部分框架拆解 | 结构化梳理笔记 |
+| **梳理他人的 benchmark** | 5 部分框架拆解(先 L0-L3 逐层带看懂,再做方法论判断) | 结构化梳理笔记(含白话"三分钟版" + ASCII 架构图/流程图) |
 
 ## 使用示例
 
@@ -84,16 +84,19 @@ benchmark-assistant/              # 仓库根 = 插件
     marketplace.json              # 市场清单
   skills/
     benchmark-assistant/          # skill 本体
-      SKILL.md                    # 入口:菜单、受众推断、模式路由、溯源规则、边界
+      SKILL.md                    # 入口:菜单、受众推断 + 教学协议、模式路由、溯源规则、边界
       references/
         knowledge-map.md          # 主题 -> 源 ID + 小节 索引(溯源骨架)
         design-principles.md      # 跨源提炼的 16 条设计原则
         benchmarks.md             # 常见 benchmark 速查(LLM + agent)
+        glossary.md               # 新手/中级白话术语表
       playbooks/
         build.md                  # 构建模式:10 步引导
         review.md                 # 复盘模式:9 维检查清单
         analyze.md                # 梳理模式:5 部分框架
-      sources/                    # 5 份归一化参考资料(只读 .md)
+      scripts/
+        fetch-sources.sh          # 可选:从 arXiv 重新获取 chang-survey
+      sources/                    # 5 份归一化参考资料(只读 .md)+ README.md(许可证与快照同步说明)
   docs/                           # 设计 spec、实现 plan、验证记录
 ```
 
