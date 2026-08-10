@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "comment": "Source registry: single machine-readable source of truth for the knowledge base. check_citations.py loads valid source IDs from here; check_snapshot_sync.py verifies snapshots against originals. Adding a new source = add an entry here + drop the snapshot file. Paths are relative to the repo root.",
+  "sources": [
+    {
+      "id": "chapter6",
+      "snapshot": "skills/benchmark-assistant/sources/chapter6.md",
+      "original": "chapter6.md",
+      "original_type": "markdown",
+      "sync_mode": "exact-modulo-crlf",
+      "license": "Apache-2.0",
+      "aliases": {
+        "引言": "# Agent 的评估"
+      },
+      "snapshot_sha256": "a662c8a010c345c7d31c76c41458b1d0c5080194fc68dd14957cbe6c7794e553"
+    },
+    {
+      "id": "chapter12",
+      "snapshot": "skills/benchmark-assistant/sources/chapter12.md",
+      "original": "第十二章 智能体性能评估.md",
+      "original_type": "markdown",
+      "sync_mode": "exact-modulo-crlf",
+      "license": "CC BY-NC-SA 4.0",
+      "snapshot_sha256": "12240210c72fd72fce1a1ed09026cba76ff3b23790c9986c457217d603def6ca"
+    },
+    {
+      "id": "guidebook",
+      "snapshot": "skills/benchmark-assistant/sources/guidebook.md",
+      "original": "the-llm-evaluation-guidebook/the-llm-evaluation-guidebook (1)/auto/the-llm-evaluation-guidebook (1).md",
+      "original_type": "markdown",
+      "sync_mode": "normalized",
+      "normalization": "strip U+FFFD (mojibake) and CR; a one-time manual cleanup (emoji/artifacts) means exact match is impossible - similarity must stay >= baseline_ratio",
+      "baseline_ratio": 0.995,
+      "license": "CC BY-NC-SA 4.0",
+      "snapshot_sha256": "bced3bf6920eb8eee0c63fa74fdaed5b91d39a15eb0d02d2a7232c7956dd7d17"
+    },
+    {
+      "id": "chang-survey",
+      "snapshot": "skills/benchmark-assistant/sources/chang-survey.md",
+      "original": "tools/_conv/chang-arxiv.pdf",
+      "original_type": "pdf",
+      "sync_mode": "derived",
+      "original_sha256": "af3302fa29c8533ac06338e537c8c79a3afa02e3299f4763f9687715aa99cdeb",
+      "origin_url": "https://arxiv.org/pdf/2307.03109",
+      "note": "Snapshot derives from the arXiv CC-BY preprint. The repo-root Zotero PDF is the ACM published version (TIST 15(3):39) and is NOT redistributable - never convert from it.",
+      "license": "CC-BY 4.0 (arXiv preprint, arXiv:2307.03109)",
+      "snapshot_sha256": "6c22039bddfdb83780643a333a511e4a8290ac3bc69897b1306512c31319114b"
+    },
+    {
+      "id": "yehudai-survey",
+      "snapshot": "skills/benchmark-assistant/sources/yehudai-survey.md",
+      "original": "Yehudai 等 - 2026 - A survey on evaluation of LLM-based agents.pdf",
+      "original_type": "pdf",
+      "sync_mode": "derived",
+      "original_sha256": "2c3c80fff5735925378b99528684559e2d47f82e281957dc4b955397186560b1",
+      "license": "CC-BY 4.0",
+      "snapshot_sha256": "f42a58c480a5cc053ff3cc371c8b4b2f0ab77e7c22581c862f0c4ad08d17fc4e"
+    }
+  ]
+}

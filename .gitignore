@@ -17,3 +17,5 @@ __pycache__/
 /the-llm-evaluation-guidebook/
 /chapter6.md
 /第十二章 智能体性能评估.md
+tools/.venv/
+tools/_conv/

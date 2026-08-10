@@ -1,0 +1,25 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Citation graph resolves against sources/
+        run: python tools/check_citations.py
+
+      - name: Snapshots in sync with originals
+        run: python tools/check_snapshot_sync.py
+
+      - name: Plugin manifest versions consistent
+        run: python tools/check_versions.py
