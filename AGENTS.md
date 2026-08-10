@@ -21,3 +21,14 @@ The skill content lives at `skills/benchmark-assistant/`. When the user asks to 
 - **Codex**: plugin manifest at `.codex-plugin/plugin.json` (points to `./skills/`).
 - **Gemini CLI**: `GEMINI.md` imports `skills/benchmark-assistant/SKILL.md` via `@`; see `gemini-extension.json`.
 - **Others**: follow "How to use it" above; this AGENTS.md is the generic entry.
+
+## Development (repo tooling)
+
+`tools/` (stdlib-only Python, run from repo root) — all three run in CI on every push/PR:
+
+- `python tools/check_citations.py` — every 「source ID + §section + line」 reference in `SKILL.md` / `playbooks/` / `references/` must resolve against `sources/`; also guards principle numbering (1-16) and playbook structures. **Run this after any edit to those files.** Re-anchor mismatched line refs it reports.
+- `python tools/check_snapshot_sync.py` — snapshots must match `tools/sources-registry.json` hashes; locally also compares against the gitignored originals. After an intentional re-normalization: `--update`.
+- `python tools/check_versions.py` — `plugin.json` / `marketplace.json` version parity.
+- `tools/reconvert_surveys.py` — re-converts the two survey PDFs via pymupdf4llm (venv at `tools/.venv/`). chang-survey derives ONLY from the arXiv preprint (CC-BY); the repo-root Zotero PDF is the ACM version and must not be bundled.
+
+`tools/sources-registry.json` is the machine-readable source of truth for the knowledge base (IDs, snapshot paths/hashes, originals, licenses, citation aliases). Adding a new reference doc = registry entry + snapshot file.

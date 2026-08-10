@@ -101,8 +101,18 @@ benchmark-assistant/              # repo root = plugin
       scripts/
         fetch-sources.sh          # optional re-fetch of chang-survey from arXiv
       sources/                    # 5 normalized reference docs (read-only .md) + README.md (licenses & snapshot-sync note)
+  tools/                          # repo maintenance (CI): citation-graph lint, snapshot-sync check,
+                                  # manifest-version check, survey re-conversion, sources-registry.json
   docs/                           # design spec, implementation plan, verification record
 ```
+
+## Quality gates (CI)
+
+Every push/PR runs three checks (`tools/`, stdlib-only Python):
+
+- `check_citations.py` — every 「source ID + §section + line」 reference in `SKILL.md` / `playbooks/` / `references/` must resolve against `sources/` (383 checks; tolerant of conversion artifacts; also guards the principle numbering 1-16 and playbook structures).
+- `check_snapshot_sync.py` — `sources/` snapshots must match the registry's recorded hashes, and (on the maintainer's machine, where the gitignored originals live) must not drift from the originals.
+- `check_versions.py` — `plugin.json` and `marketplace.json` versions must agree.
 
 ## Knowledge sources
 
@@ -126,7 +136,7 @@ Citations always use source ID + section, never filenames or author names.
 
 ## Known limitations
 
-The two surveys (`chang-survey`, `yehudai-survey`) were converted from PDF via pypdf as a fallback; their prose has space-joining artifacts (e.g. `a n dhow`) but section headings are intact and locatable. Section-level citations are unaffected; on-demand quotes are lightly cleaned.
+The two surveys (`chang-survey`, `yehudai-survey`) are converted from PDF via `pymupdf4llm` (clean headings, no space-joining artifacts). Table regions are still lossy (row text may be flattened); section-level citations are verified by `tools/check_citations.py` in CI.
 
 ## Acknowledgments & Licenses
 
